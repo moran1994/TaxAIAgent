@@ -1,0 +1,17 @@
+{
+  "corpus_id": "C04",
+  "title": "财政部 税务总局 海关总署关于深化增值税改革有关政策的公告",
+  "source_url": "https://fgk.chinatax.gov.cn/zcfgk/c102416/c5202330/content.html",
+  "doc_no": "财政部 税务总局 海关总署公告2019年第39号",
+  "effective_from": "2019-04-01",
+  "note": "部分条款已被后续留抵政策等调整/废止，切块须标效力",
+  "downloaded_at": "2026-07-24T10:15:41.862168+00:00",
+  "files": [
+    "source.html",
+    "source.txt"
+  ],
+  "bytes_html": 45778,
+  "bytes_txt": 11268,
+  "status": "raw_archived",
+  "publish_ready": false
+}

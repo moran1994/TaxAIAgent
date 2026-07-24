@@ -1,0 +1,17 @@
+{
+  "corpus_id": "C01",
+  "title": "中华人民共和国增值税法",
+  "source_url": "https://fgk.chinatax.gov.cn/zcfgk/c100009/c5237365/content.html",
+  "doc_no": "主席令（2024）",
+  "effective_from": "2026-01-01",
+  "note": "取代增值税暂行条例；全文有效",
+  "downloaded_at": "2026-07-24T10:15:41.854221+00:00",
+  "files": [
+    "source.html",
+    "source.txt"
+  ],
+  "bytes_html": 76878,
+  "bytes_txt": 15532,
+  "status": "raw_archived",
+  "publish_ready": false
+}

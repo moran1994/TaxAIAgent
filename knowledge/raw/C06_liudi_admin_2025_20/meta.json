@@ -1,0 +1,17 @@
+{
+  "corpus_id": "C06",
+  "title": "国家税务总局关于办理增值税期末留抵退税有关征管事项的公告",
+  "source_url": "https://fgk.chinatax.gov.cn/zcfgk/c100012/c5242455/content.html",
+  "doc_no": "国家税务总局公告2025年第20号",
+  "effective_from": "2025-09-01",
+  "note": "留抵征管配套",
+  "downloaded_at": "2026-07-24T10:15:41.868812+00:00",
+  "files": [
+    "source.html",
+    "source.txt"
+  ],
+  "bytes_html": 47257,
+  "bytes_txt": 9539,
+  "status": "raw_archived",
+  "publish_ready": false
+}

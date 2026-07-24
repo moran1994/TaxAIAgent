@@ -1,0 +1,87 @@
+[
+  {
+    "corpus_id": "C01",
+    "title": "中华人民共和国增值税法",
+    "source_url": "https://fgk.chinatax.gov.cn/zcfgk/c100009/c5237365/content.html",
+    "doc_no": "主席令（2024）",
+    "effective_from": "2026-01-01",
+    "note": "取代增值税暂行条例；全文有效",
+    "downloaded_at": "2026-07-24T10:15:41.854221+00:00",
+    "files": [
+      "source.html",
+      "source.txt"
+    ],
+    "bytes_html": 76878,
+    "bytes_txt": 15532,
+    "status": "raw_archived",
+    "publish_ready": false
+  },
+  {
+    "corpus_id": "C02",
+    "title": "中华人民共和国增值税法实施条例",
+    "source_url": "https://fgk.chinatax.gov.cn/zcfgk/c100010/c5246349/content.html",
+    "doc_no": "国务院令第826号",
+    "effective_from": "2026-01-01",
+    "note": "配套条例",
+    "downloaded_at": "2026-07-24T10:15:41.858986+00:00",
+    "files": [
+      "source.html",
+      "source.txt"
+    ],
+    "bytes_html": 77307,
+    "bytes_txt": 21686,
+    "status": "raw_archived",
+    "publish_ready": false
+  },
+  {
+    "corpus_id": "C04",
+    "title": "财政部 税务总局 海关总署关于深化增值税改革有关政策的公告",
+    "source_url": "https://fgk.chinatax.gov.cn/zcfgk/c102416/c5202330/content.html",
+    "doc_no": "财政部 税务总局 海关总署公告2019年第39号",
+    "effective_from": "2019-04-01",
+    "note": "部分条款已被后续留抵政策等调整/废止，切块须标效力",
+    "downloaded_at": "2026-07-24T10:15:41.862168+00:00",
+    "files": [
+      "source.html",
+      "source.txt"
+    ],
+    "bytes_html": 45778,
+    "bytes_txt": 11268,
+    "status": "raw_archived",
+    "publish_ready": false
+  },
+  {
+    "corpus_id": "C05",
+    "title": "关于完善增值税期末留抵退税政策的公告",
+    "source_url": "https://szs.mof.gov.cn/zhengcefabu/202508/t20250822_3970658.htm",
+    "doc_no": "财政部 税务总局公告2025年第7号",
+    "effective_from": "2025-09-01",
+    "note": "现行留抵政策主文件",
+    "downloaded_at": "2026-07-24T10:15:41.864710+00:00",
+    "files": [
+      "source.html",
+      "source.txt"
+    ],
+    "bytes_html": 24277,
+    "bytes_txt": 9396,
+    "status": "raw_archived",
+    "publish_ready": false
+  },
+  {
+    "corpus_id": "C06",
+    "title": "国家税务总局关于办理增值税期末留抵退税有关征管事项的公告",
+    "source_url": "https://fgk.chinatax.gov.cn/zcfgk/c100012/c5242455/content.html",
+    "doc_no": "国家税务总局公告2025年第20号",
+    "effective_from": "2025-09-01",
+    "note": "留抵征管配套",
+    "downloaded_at": "2026-07-24T10:15:41.868812+00:00",
+    "files": [
+      "source.html",
+      "source.txt"
+    ],
+    "bytes_html": 47257,
+    "bytes_txt": 9539,
+    "status": "raw_archived",
+    "publish_ready": false
+  }
+]
