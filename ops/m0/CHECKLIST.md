@@ -7,5 +7,6 @@
 | M0-03 | 专家冷启动 | `ops/m0/expert-recruitment.md` | 材料完成 · 待真人意向≥5 |
 | M0-04 | 脚手架 | `apps/api` `apps/web` `README.md` | 代码完成 |
 | M1-01 | Schema | `apps/api/app/models.py` `knowledge/m1/schema.md` | 已建表模型 |
+| M1-02 | 切块入库 | `scripts/import_raw_corpus.py` + `knowledge/m1/qa/` | **126 切块全部忠实度通过并 published** |
 
 **下一任务**：M1-02 原文落库 + 蒸馏辅助切块（先下载 C05/C06 等 P0 原文到 `knowledge/raw/`）。

@@ -83,3 +83,32 @@ def chat_ping() -> dict:
         "message": "chat not enabled yet — complete M1-03/M1-06",
         "forced_citation": True,
     }
+
+
+@app.get("/v1/knowledge/clauses")
+def list_clauses(
+    corpus_id: str | None = None,
+    status: str = "published",
+    limit: int = 20,
+    db: Session = Depends(get_db),
+) -> dict:
+    q = db.query(Clause).join(Policy)
+    if status:
+        q = q.filter(Clause.status == status)
+    if corpus_id:
+        q = q.filter(Policy.corpus_id == corpus_id)
+    rows = q.order_by(Policy.corpus_id, Clause.id).limit(min(limit, 100)).all()
+    return {
+        "count": len(rows),
+        "items": [
+            {
+                "id": c.id,
+                "corpus_id": c.policy.corpus_id,
+                "clause_no": c.clause_no,
+                "tags": c.tax_tags,
+                "status": c.status,
+                "preview": c.body[:120].replace("\n", " "),
+            }
+            for c in rows
+        ],
+    }
