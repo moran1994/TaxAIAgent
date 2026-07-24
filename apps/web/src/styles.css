@@ -1,0 +1,106 @@
+:root {
+  color: #1a1f16;
+  background: #e8efe4;
+  font-family: "IBM Plex Sans", "Source Han Sans SC", "PingFang SC", sans-serif;
+  line-height: 1.5;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    radial-gradient(ellipse 80% 50% at 10% -10%, #c5d9b8 0%, transparent 55%),
+    radial-gradient(ellipse 60% 40% at 100% 0%, #d4e0c8 0%, transparent 50%),
+    #e8efe4;
+}
+
+.page {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 48px 20px 80px;
+}
+
+.brand {
+  margin: 0 0 8px;
+  font-size: 14px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #3d5a2e;
+  font-weight: 600;
+}
+
+h1 {
+  margin: 0 0 12px;
+  font-family: "Fraunces", "Source Han Serif SC", serif;
+  font-size: clamp(1.8rem, 4vw, 2.4rem);
+  font-weight: 550;
+  line-height: 1.2;
+}
+
+.sub {
+  margin: 0;
+  color: #4a5543;
+  max-width: 36em;
+}
+
+.panel {
+  margin-top: 28px;
+  padding: 20px 0;
+  border-top: 1px solid #b7c4ae;
+}
+
+.panel h2 {
+  margin: 0 0 12px;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.panel ul {
+  margin: 0;
+  padding-left: 1.2em;
+  color: #333;
+}
+
+.ask {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #8fa883;
+  border-radius: 4px;
+  background: #f4f7f1;
+  font: inherit;
+  resize: vertical;
+}
+
+button {
+  margin: 12px 8px 0 0;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 4px;
+  background: #2f4a24;
+  color: #f4f7f1;
+  font: inherit;
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+button.ghost {
+  background: transparent;
+  color: #2f4a24;
+  border: 1px solid #2f4a24;
+}
+
+.err {
+  color: #8b2e2e;
+}
+
+.foot {
+  margin-top: 40px;
+  padding-top: 16px;
+  border-top: 1px solid #b7c4ae;
+  font-size: 12px;
+  color: #5c6656;
+}
