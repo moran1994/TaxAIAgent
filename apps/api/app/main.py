@@ -14,10 +14,11 @@ from app.config import get_settings
 from app.db import get_db, init_db
 from app.knowledge.search import search_chunks
 from app.llm.gateway import LLMGateway, load_prompt
-from app.models import AuditLog, Chunk, Clause, Policy, PublishStatus
+from app.models import AuditLog, Chunk, Clause, LedgerEntry, Policy, PublishStatus, Ticket
 from app.services.chat import answer_question, export_conversation
+from app.services import tickets as ticket_svc
 
-app = FastAPI(title="TaxAIAgent API", version="0.2.0")
+app = FastAPI(title="TaxAIAgent API", version="0.3.0")
 
 app.add_middleware(
     CORSMiddleware,
@@ -39,14 +40,38 @@ class ClauseStatusUpdate(BaseModel):
     actor: str = "ops"
 
 
+class TicketCreate(BaseModel):
+    conversation_id: int | None = None
+    plan_code: str = "standard"
+    ticket_type: str = "expert_consult"
+
+
+class ExpertReply(BaseModel):
+    reply: str = Field(min_length=1)
+    suggest_reflow: bool = False
+
+
+class RateBody(BaseModel):
+    rating: int = Field(ge=1, le=5)
+    comment: str | None = None
+
+
 @app.on_event("startup")
 def on_startup() -> None:
+    from app.db import SessionLocal
+
     init_db()
+    db = SessionLocal()
+    try:
+        ticket_svc.ensure_demo_expert(db)
+        db.commit()
+    finally:
+        db.close()
 
 
 @app.get("/health")
 def health() -> dict:
-    return {"status": "ok", "env": get_settings().app_env, "version": "0.2.0"}
+    return {"status": "ok", "env": get_settings().app_env, "version": "0.3.0"}
 
 
 @app.get("/v1/meta/disclaimer")
@@ -249,3 +274,192 @@ def conversation_export(conversation_id: int, db: Session = Depends(get_db)) -> 
     if not data:
         raise HTTPException(404, "conversation not found")
     return data
+
+
+@app.get("/v1/tickets/plans")
+def ticket_plans() -> dict:
+    return {"plans": ticket_svc.PLANS, "expert_ratio_default": ticket_svc.EXPERT_RATIO_DEFAULT}
+
+
+@app.post("/v1/tickets")
+def create_ticket(body: TicketCreate, db: Session = Depends(get_db)) -> dict:
+    try:
+        t = ticket_svc.create_ticket(
+            db,
+            conversation_id=body.conversation_id,
+            plan_code=body.plan_code,
+            ticket_type=body.ticket_type,
+        )
+    except ValueError as e:
+        raise HTTPException(400, str(e)) from e
+    return ticket_svc.ticket_to_dict(t, include_context=True)
+
+
+@app.post("/v1/tickets/{ticket_id}/pay/mock")
+def pay_ticket_mock(
+    ticket_id: int,
+    fail: bool = False,
+    db: Session = Depends(get_db),
+) -> dict:
+    try:
+        t = ticket_svc.mock_pay(db, ticket_id, fail=fail)
+    except LookupError as e:
+        raise HTTPException(404, str(e)) from e
+    except ValueError as e:
+        raise HTTPException(400, str(e)) from e
+    return ticket_svc.ticket_to_dict(t)
+
+
+@app.get("/v1/tickets/{ticket_id}")
+def get_ticket(ticket_id: int, db: Session = Depends(get_db)) -> dict:
+    t = db.get(Ticket, ticket_id)
+    if not t:
+        raise HTTPException(404, "ticket not found")
+    return ticket_svc.ticket_to_dict(t, include_context=True)
+
+
+@app.get("/v1/expert/queue")
+def expert_queue(db: Session = Depends(get_db)) -> dict:
+    ticket_svc.ensure_demo_expert(db)
+    rows = (
+        db.query(Ticket)
+        .filter(Ticket.status == "pending_accept")
+        .order_by(Ticket.id)
+        .all()
+    )
+    return {"items": [ticket_svc.ticket_to_dict(t, include_context=True) for t in rows]}
+
+
+@app.post("/v1/expert/tickets/{ticket_id}/claim")
+def expert_claim(ticket_id: int, db: Session = Depends(get_db)) -> dict:
+    expert = ticket_svc.ensure_demo_expert(db)
+    try:
+        t = ticket_svc.claim_ticket(db, ticket_id, expert)
+    except LookupError as e:
+        raise HTTPException(404, str(e)) from e
+    except ValueError as e:
+        raise HTTPException(409, str(e)) from e
+    return ticket_svc.ticket_to_dict(t, include_context=True)
+
+
+@app.post("/v1/expert/tickets/{ticket_id}/reply")
+def expert_reply(ticket_id: int, body: ExpertReply, db: Session = Depends(get_db)) -> dict:
+    expert = ticket_svc.ensure_demo_expert(db)
+    try:
+        t = ticket_svc.submit_reply(
+            db,
+            ticket_id,
+            expert,
+            body.reply,
+            suggest_reflow=body.suggest_reflow,
+        )
+    except LookupError as e:
+        raise HTTPException(404, str(e)) from e
+    except ValueError as e:
+        raise HTTPException(400, str(e)) from e
+    return ticket_svc.ticket_to_dict(t)
+
+
+@app.get("/v1/expert/mine")
+def expert_mine(db: Session = Depends(get_db)) -> dict:
+    expert = ticket_svc.ensure_demo_expert(db)
+    rows = (
+        db.query(Ticket)
+        .filter(Ticket.expert_id == expert.id)
+        .order_by(Ticket.id.desc())
+        .limit(50)
+        .all()
+    )
+    return {"expert": {"id": expert.id, "name": expert.display_name}, "items": [ticket_svc.ticket_to_dict(t) for t in rows]}
+
+
+@app.post("/v1/tickets/{ticket_id}/rate")
+def rate_ticket(ticket_id: int, body: RateBody, db: Session = Depends(get_db)) -> dict:
+    try:
+        t = ticket_svc.rate_ticket(db, ticket_id, body.rating, body.comment)
+    except LookupError as e:
+        raise HTTPException(404, str(e)) from e
+    except ValueError as e:
+        raise HTTPException(400, str(e)) from e
+    return ticket_svc.ticket_to_dict(t)
+
+
+@app.post("/v1/tickets/{ticket_id}/refund/request")
+def refund_request(ticket_id: int, db: Session = Depends(get_db)) -> dict:
+    try:
+        t = ticket_svc.request_refund(db, ticket_id)
+    except LookupError as e:
+        raise HTTPException(404, str(e)) from e
+    except ValueError as e:
+        raise HTTPException(400, str(e)) from e
+    return ticket_svc.ticket_to_dict(t)
+
+
+@app.post("/v1/tickets/{ticket_id}/refund/approve")
+def refund_approve(ticket_id: int, db: Session = Depends(get_db)) -> dict:
+    try:
+        t = ticket_svc.approve_refund(db, ticket_id)
+    except LookupError as e:
+        raise HTTPException(404, str(e)) from e
+    except ValueError as e:
+        raise HTTPException(400, str(e)) from e
+    return ticket_svc.ticket_to_dict(t)
+
+
+@app.get("/v1/ledger.csv")
+def ledger_csv(db: Session = Depends(get_db)):
+    from fastapi.responses import PlainTextResponse
+
+    rows = db.query(LedgerEntry).order_by(LedgerEntry.id).all()
+    lines = [
+        "ticket_id,gross_cents,fee_cents,expert_share_cents,platform_share_cents,expert_ratio,created_at"
+    ]
+    for r in rows:
+        lines.append(
+            f"{r.ticket_id},{r.gross_cents},{r.fee_cents},{r.expert_share_cents},"
+            f"{r.platform_share_cents},{r.expert_ratio},{r.created_at.isoformat() if r.created_at else ''}"
+        )
+    return PlainTextResponse("\n".join(lines) + "\n", media_type="text/csv")
+
+
+@app.get("/v1/metrics/kr")
+def metrics_kr(db: Session = Depends(get_db)) -> dict:
+    """Minimal Concierge KR snapshot (M3-01)."""
+    from pathlib import Path
+    import json
+
+    paid = db.query(Ticket).filter(Ticket.status != "pending_payment").count()
+    completed = db.query(Ticket).filter(Ticket.status == "completed").count()
+    rated = db.query(Ticket).filter(Ticket.rating.isnot(None)).all()
+    avg_rating = round(sum(t.rating for t in rated) / len(rated), 2) if rated else None
+    ledgers = db.query(LedgerEntry).all()
+    gross = sum(x.gross_cents for x in ledgers)
+    platform = sum(x.platform_share_cents for x in ledgers)
+    fee = sum(x.fee_cents for x in ledgers)
+    margin = None
+    if gross:
+        margin = round((platform) / gross, 4)
+
+    golden_path = (
+        Path(__file__).resolve().parents[3]
+        / "knowledge"
+        / "m1"
+        / "qa"
+        / "golden_eval_report.json"
+    )
+    golden = {}
+    if golden_path.exists():
+        golden = json.loads(golden_path.read_text(encoding="utf-8")).get("metrics", {})
+
+    return {
+        "KR1_retrieval_hit_rate": golden.get("retrieval_hit_rate"),
+        "KR1_gate_ok": golden.get("gate_ok"),
+        "KR2_paid_or_advanced_tickets": paid,
+        "KR2_completed_tickets": completed,
+        "KR3_avg_rating": avg_rating,
+        "KR4_platform_share_over_gross": margin,
+        "ledger_gross_cents": gross,
+        "ledger_platform_cents": platform,
+        "ledger_fee_cents": fee,
+        "note": "转单点击率需前端埋点汇聚；SLA 见 ticket.sla_overdue",
+    }

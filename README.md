@@ -62,4 +62,9 @@ curl -s -X POST http://127.0.0.1:8000/v1/chat \
   -d '{"query":"哪些进项不得抵扣"}'
 ```
 
-进度：`knowledge/m1/M1-PROGRESS.md`
+进度：`knowledge/m1/M1-PROGRESS.md` · `knowledge/m1/M2-STATUS.md`
+
+```bash
+# M2 金路径
+.venv/bin/python scripts/e2e_m2.py
+```

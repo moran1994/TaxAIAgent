@@ -139,9 +139,17 @@ class Ticket(Base):
     )
     status: Mapped[str] = mapped_column(String(32), default=TicketStatus.pending_payment.value)
     price_cents: Mapped[int] = mapped_column(Integer, default=9900)
+    plan_code: Mapped[str] = mapped_column(String(32), default="standard")  # standard|complex
+    context_summary: Mapped[str | None] = mapped_column(Text, nullable=True)
     sla_deadline: Mapped[datetime | None] = mapped_column(DateTime, nullable=True)
     expert_reply: Mapped[str | None] = mapped_column(Text, nullable=True)
+    suggest_reflow: Mapped[bool] = mapped_column(Boolean, default=False)
+    rating: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    rating_comment: Mapped[str | None] = mapped_column(Text, nullable=True)
+    refund_requested: Mapped[bool] = mapped_column(Boolean, default=False)
+    payment_channel: Mapped[str | None] = mapped_column(String(32), nullable=True)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
+    updated_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
 
 
 class LedgerEntry(Base):
