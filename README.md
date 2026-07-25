@@ -45,3 +45,21 @@ npm run dev
 ## 知识库原则
 
 权威原文为唯一真源；LLM 蒸馏仅辅助打标；禁止无原文入库。详见 backlog `M1-02`。
+
+## 常用命令
+
+```bash
+# 切块入库
+cd apps/api && .venv/bin/python scripts/import_raw_corpus.py --publish
+
+# 黄金集门禁（种子题）
+.venv/bin/python scripts/eval_golden.py
+
+# 问答（需 API 已启动）
+curl -s http://127.0.0.1:8000/v1/knowledge/search?q=留抵退税 | head
+curl -s -X POST http://127.0.0.1:8000/v1/chat \
+  -H 'content-type: application/json' \
+  -d '{"query":"哪些进项不得抵扣"}'
+```
+
+进度：`knowledge/m1/M1-PROGRESS.md`

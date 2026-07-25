@@ -83,6 +83,10 @@ button {
   background: #2f4a24;
   color: #f4f7f1;
   font: inherit;
+  cursor: pointer;
+}
+
+button:disabled {
   cursor: not-allowed;
   opacity: 0.55;
 }
@@ -91,6 +95,73 @@ button.ghost {
   background: transparent;
   color: #2f4a24;
   border: 1px solid #2f4a24;
+}
+
+button.linkish {
+  background: none;
+  color: #2f4a24;
+  border: none;
+  padding: 0;
+  margin: 0 0 8px;
+  text-align: left;
+  text-decoration: underline;
+  opacity: 1;
+  cursor: pointer;
+}
+
+.pill {
+  display: inline-block;
+  margin-right: 8px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 12px;
+  border: 1px solid #8fa883;
+}
+
+.pill.warn {
+  border-color: #b07a2a;
+  color: #7a4e10;
+}
+
+.state-answered {
+  border-color: #2f4a24;
+}
+
+.state-uncertain,
+.state-refused {
+  border-color: #8b2e2e;
+  color: #8b2e2e;
+}
+
+.conclusion {
+  white-space: pre-wrap;
+}
+
+.muted {
+  color: #5c6656;
+}
+
+.small {
+  font-size: 12px;
+}
+
+.cites {
+  padding-left: 1.1em;
+}
+
+.body {
+  white-space: pre-wrap;
+  background: #f4f7f1;
+  border: 1px solid #b7c4ae;
+  padding: 12px;
+  font-size: 13px;
+  overflow: auto;
+  max-height: 320px;
+}
+
+h3 {
+  margin: 16px 0 8px;
+  font-size: 0.95rem;
 }
 
 .err {

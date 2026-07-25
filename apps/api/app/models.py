@@ -155,3 +155,15 @@ class LedgerEntry(Base):
     platform_share_cents: Mapped[int] = mapped_column(Integer)
     expert_ratio: Mapped[float] = mapped_column(Float, default=0.7)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
+
+
+class AuditLog(Base):
+    __tablename__ = "audit_logs"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    actor: Mapped[str] = mapped_column(String(128), default="system")
+    action: Mapped[str] = mapped_column(String(64))
+    entity_type: Mapped[str] = mapped_column(String(64))
+    entity_id: Mapped[str] = mapped_column(String(64))
+    detail: Mapped[str | None] = mapped_column(Text, nullable=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)

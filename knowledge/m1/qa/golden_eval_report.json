@@ -1,0 +1,194 @@
+{
+  "definition": {
+    "citation_correct": "top5 命中期望 corpus_id 任一",
+    "hard_hallucination": "answered 且 citation_ids 为空",
+    "release_gate": "recall>=0.70 and hard_hallucination<=0.05"
+  },
+  "metrics": {
+    "n": 8,
+    "retrieval_hit_rate": 1.0,
+    "hard_hallucination_rate": 0.0,
+    "gate_ok": true
+  },
+  "rows": [
+    {
+      "id": "Q01",
+      "ok": true,
+      "hit_corpus": [
+        "C02",
+        "C04",
+        "C06"
+      ],
+      "expect": [
+        "C01",
+        "C02"
+      ],
+      "state": "answered",
+      "citation_ids": [
+        213,
+        176,
+        222,
+        248,
+        221
+      ],
+      "hard_hallucination": false,
+      "latency_ms": 40.4
+    },
+    {
+      "id": "Q05",
+      "ok": true,
+      "hit_corpus": [
+        "C01",
+        "C02",
+        "C06"
+      ],
+      "expect": [
+        "C01"
+      ],
+      "state": "answered",
+      "citation_ids": [
+        201,
+        154,
+        186,
+        248,
+        155
+      ],
+      "hard_hallucination": false,
+      "latency_ms": 20.15
+    },
+    {
+      "id": "Q11",
+      "ok": true,
+      "hit_corpus": [
+        "C01",
+        "C02",
+        "C04",
+        "C05"
+      ],
+      "expect": [
+        "C01",
+        "C02"
+      ],
+      "state": "answered",
+      "citation_ids": [
+        189,
+        187,
+        148,
+        234,
+        226
+      ],
+      "hard_hallucination": false,
+      "latency_ms": 18.57
+    },
+    {
+      "id": "Q29",
+      "ok": true,
+      "hit_corpus": [
+        "C01",
+        "C02",
+        "C05"
+      ],
+      "expect": [
+        "C01",
+        "C02"
+      ],
+      "state": "answered",
+      "citation_ids": [
+        200,
+        135,
+        237,
+        156,
+        134
+      ],
+      "hard_hallucination": false,
+      "latency_ms": 18.83
+    },
+    {
+      "id": "Q37",
+      "ok": true,
+      "hit_corpus": [
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "expect": [
+        "C05"
+      ],
+      "state": "answered",
+      "citation_ids": [
+        238,
+        226,
+        252,
+        248,
+        234
+      ],
+      "hard_hallucination": false,
+      "latency_ms": 19.91
+    },
+    {
+      "id": "Q38",
+      "ok": true,
+      "hit_corpus": [
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "expect": [
+        "C05"
+      ],
+      "state": "answered",
+      "citation_ids": [
+        228,
+        244,
+        226,
+        248,
+        237
+      ],
+      "hard_hallucination": false,
+      "latency_ms": 20.63
+    },
+    {
+      "id": "Q41",
+      "ok": true,
+      "hit_corpus": [
+        "C04",
+        "C06"
+      ],
+      "expect": [
+        "C06"
+      ],
+      "state": "answered",
+      "citation_ids": [
+        244,
+        248,
+        226,
+        246,
+        247
+      ],
+      "hard_hallucination": false,
+      "latency_ms": 20.56
+    },
+    {
+      "id": "Q21",
+      "ok": true,
+      "hit_corpus": [
+        "C01",
+        "C02",
+        "C05"
+      ],
+      "expect": [
+        "C01"
+      ],
+      "state": "answered",
+      "citation_ids": [
+        131,
+        136,
+        130,
+        231,
+        183
+      ],
+      "hard_hallucination": false,
+      "latency_ms": 18.95
+    }
+  ]
+}
