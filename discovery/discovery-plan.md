@@ -25,6 +25,10 @@
 | 实验设计 | `discovery/experiments-A-expert.md` |
 | 本计划 | `discovery/discovery-plan.md` |
 | 指标看板 | `discovery/metrics-dashboard.md` |
+| 机会解决方案树 | `discovery/opportunity-solution-tree.md` |
+| 访谈脚本 | `discovery/interview-script.md` |
+| PRD v0.1 | `prd/PRD-智能税务知识库问答助手.md` |
+| 红队 / 用户故事 / Pack | `prd/red-team-*.md` · `prd/user-stories-P0.md` · `prd/prd-pack.md` |
 
 ---
 
