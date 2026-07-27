@@ -7,7 +7,7 @@
 | M2-01 | 两档报价下单 + 会话上下文摘要 | `POST /v1/tickets` |
 | M2-02 | **模拟微信支付**沙箱 | `POST /v1/tickets/{id}/pay/mock` |
 | M2-03 | 状态机 + SLA 24h | `app/services/tickets.py` |
-| M2-04 | 专家待接池/领单/答复（demo 专家） | `/v1/expert/*` + Web「专家工作台」 |
+| M2-04 | 专家登录 + 待接池/领单/答复 | `/v1/auth/*` + `/v1/expert/*` + Web「专家工作台」 |
 | M2-05 | 完成自动分账 + CSV | `GET /v1/ledger.csv` |
 | M2-06 | 评价 + 退款申请/审批 | `/rate` `/refund/*` |
 | M2-07 | E2E 脚本 | `scripts/e2e_m2.py` |

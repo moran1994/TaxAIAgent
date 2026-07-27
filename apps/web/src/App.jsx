@@ -1,5 +1,14 @@
 import { useEffect, useState } from "react";
 
+const EXPERT_TOKEN_KEY = "taxai_expert_token";
+
+function formatSla(t) {
+  if (t.sla_overdue) return "已超时";
+  if (t.sla_remaining_hours == null) return "—";
+  if (t.sla_remaining_hours < 0) return "已超时";
+  return `剩 ${t.sla_remaining_hours}h`;
+}
+
 export default function App() {
   const [tab, setTab] = useState("ask");
   const [health, setHealth] = useState(null);
@@ -15,11 +24,22 @@ export default function App() {
   const [plan, setPlan] = useState("standard");
   const [ticket, setTicket] = useState(null);
   const [queue, setQueue] = useState([]);
+  const [mineInProgress, setMineInProgress] = useState([]);
+  const [mineDone, setMineDone] = useState([]);
+  const [activeExpertTicket, setActiveExpertTicket] = useState(null);
   const [reply, setReply] = useState("");
+  const [suggestReflow, setSuggestReflow] = useState(false);
   const [rating, setRating] = useState(5);
   const [metrics, setMetrics] = useState(null);
   const [clauses, setClauses] = useState([]);
   const [paymentMeta, setPaymentMeta] = useState(null);
+  const [expertToken, setExpertToken] = useState(
+    () => localStorage.getItem(EXPERT_TOKEN_KEY) || ""
+  );
+  const [expert, setExpert] = useState(null);
+  const [loginPhone, setLoginPhone] = useState("expert-demo");
+  const [loginPassword, setLoginPassword] = useState("demo1234");
+  const [expertDesk, setExpertDesk] = useState("queue"); // queue | mine
 
   async function refreshMeta() {
     const [h, d, s, m, p] = await Promise.all([
@@ -39,6 +59,33 @@ export default function App() {
   useEffect(() => {
     refreshMeta().catch((e) => setError(String(e)));
   }, []);
+
+  useEffect(() => {
+    if (!expertToken) {
+      setExpert(null);
+      return;
+    }
+    fetch("/v1/auth/me", {
+      headers: { Authorization: `Bearer ${expertToken}` },
+    })
+      .then(async (r) => {
+        if (!r.ok) throw new Error("session expired");
+        return r.json();
+      })
+      .then((data) => setExpert(data.expert))
+      .catch(() => {
+        localStorage.removeItem(EXPERT_TOKEN_KEY);
+        setExpertToken("");
+        setExpert(null);
+      });
+  }, [expertToken]);
+
+  function authHeaders(extra = {}) {
+    return {
+      ...extra,
+      Authorization: `Bearer ${expertToken}`,
+    };
+  }
 
   async function loadHistory(cid) {
     if (!cid) return;
@@ -94,9 +141,60 @@ export default function App() {
     }
   }
 
-  async function refreshQueue() {
-    const data = await fetch("/v1/expert/queue").then((r) => r.json());
-    setQueue(data.items || []);
+  async function refreshExpertDesk() {
+    if (!expertToken) return;
+    const [q, m] = await Promise.all([
+      fetch("/v1/expert/queue", { headers: authHeaders() }).then(async (r) => {
+        if (r.status === 401) throw new Error("请重新登录");
+        return r.json();
+      }),
+      fetch("/v1/expert/mine", { headers: authHeaders() }).then((r) => r.json()),
+    ]);
+    setQueue(q.items || []);
+    setMineInProgress(m.in_progress || []);
+    setMineDone(m.completed || []);
+    if (q.expert) setExpert(q.expert);
+  }
+
+  async function expertLogin(e) {
+    e?.preventDefault?.();
+    setLoading(true);
+    setError("");
+    try {
+      const res = await fetch("/v1/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ phone: loginPhone.trim(), password: loginPassword }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.detail || "登录失败");
+      localStorage.setItem(EXPERT_TOKEN_KEY, data.token);
+      setExpertToken(data.token);
+      setExpert(data.expert);
+      await refreshExpertDesk();
+    } catch (err) {
+      setError(String(err.message || err));
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  async function expertLogout() {
+    try {
+      await fetch("/v1/auth/logout", {
+        method: "POST",
+        headers: authHeaders(),
+      });
+    } catch {
+      /* ignore */
+    }
+    localStorage.removeItem(EXPERT_TOKEN_KEY);
+    setExpertToken("");
+    setExpert(null);
+    setQueue([]);
+    setMineInProgress([]);
+    setMineDone([]);
+    setActiveExpertTicket(null);
   }
 
   async function loadAdminClauses() {
@@ -116,25 +214,47 @@ export default function App() {
     await refreshMeta();
   }
 
-  async function claimAndReply(id) {
+  async function claimTicket(id) {
     setLoading(true);
     try {
-      await fetch(`/v1/expert/tickets/${id}/claim`, { method: "POST" });
-      const done = await fetch(`/v1/expert/tickets/${id}/reply`, {
+      const res = await fetch(`/v1/expert/tickets/${id}/claim`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          reply:
-            reply ||
-            "（试接）经复核，建议以检索条款为准，并结合主管税务机关口径办理。",
-          suggest_reflow: false,
-        }),
-      }).then((r) => r.json());
-      setTicket(done);
+        headers: authHeaders(),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.detail || "领单失败");
+      setActiveExpertTicket(data);
+      setExpertDesk("mine");
       setReply("");
-      await refreshQueue();
-    } catch (e) {
-      setError(String(e));
+      await refreshExpertDesk();
+    } catch (err) {
+      setError(String(err.message || err));
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  async function submitExpertReply() {
+    if (!activeExpertTicket?.id || !reply.trim()) return;
+    setLoading(true);
+    try {
+      const res = await fetch(`/v1/expert/tickets/${activeExpertTicket.id}/reply`, {
+        method: "POST",
+        headers: authHeaders({ "Content-Type": "application/json" }),
+        body: JSON.stringify({
+          reply: reply.trim(),
+          suggest_reflow: suggestReflow,
+        }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.detail || "提交失败");
+      setTicket(data);
+      setActiveExpertTicket(null);
+      setReply("");
+      setSuggestReflow(false);
+      await refreshExpertDesk();
+    } catch (err) {
+      setError(String(err.message || err));
     } finally {
       setLoading(false);
     }
@@ -169,7 +289,9 @@ export default function App() {
               className={tab === k ? "" : "ghost"}
               onClick={() => {
                 setTab(k);
-                if (k === "expert") refreshQueue();
+                if (k === "expert" && expertToken) {
+                  refreshExpertDesk().catch((e) => setError(String(e)));
+                }
                 if (k === "admin") loadAdminClauses();
                 if (k === "ops") refreshMeta();
               }}
@@ -308,30 +430,179 @@ export default function App() {
       )}
 
       {tab === "expert" && (
-        <section className="panel">
-          <h2>待接池</h2>
-          <button type="button" className="ghost" onClick={refreshQueue}>
-            刷新
-          </button>
-          <textarea
-            className="ask"
-            rows={3}
-            value={reply}
-            onChange={(e) => setReply(e.target.value)}
-            placeholder="书面答复"
-          />
-          {queue.map((t) => (
-            <div key={t.id}>
-              <p>
-                #{t.id} · {t.plan_code} · ¥{t.price_yuan}
+        <>
+          {!expertToken || !expert ? (
+            <section className="panel">
+              <h2>专家登录</h2>
+              <p className="muted small">
+                试接账号：expert-demo / expert-demo-b，密码见 DEMO_EXPERT_PASSWORD（默认 demo1234）
               </p>
-              <button type="button" onClick={() => claimAndReply(t.id)} disabled={loading}>
-                领单并答复
-              </button>
-              <pre className="body">{t.context_summary || ""}</pre>
-            </div>
-          ))}
-        </section>
+              <form className="login-form" onSubmit={expertLogin}>
+                <label>
+                  手机号 / 账号
+                  <input
+                    value={loginPhone}
+                    onChange={(e) => setLoginPhone(e.target.value)}
+                    autoComplete="username"
+                  />
+                </label>
+                <label>
+                  密码
+                  <input
+                    type="password"
+                    value={loginPassword}
+                    onChange={(e) => setLoginPassword(e.target.value)}
+                    autoComplete="current-password"
+                  />
+                </label>
+                <button type="submit" disabled={loading}>
+                  {loading ? "登录中…" : "登录"}
+                </button>
+              </form>
+            </section>
+          ) : (
+            <>
+              <section className="panel expert-bar">
+                <div>
+                  <h2>专家工作台</h2>
+                  <p className="muted small">
+                    {expert.name} · {expert.phone}
+                  </p>
+                </div>
+                <div className="tabs desk-tabs">
+                  <button
+                    type="button"
+                    className={expertDesk === "queue" ? "" : "ghost"}
+                    onClick={() => setExpertDesk("queue")}
+                  >
+                    待接池 ({queue.length})
+                  </button>
+                  <button
+                    type="button"
+                    className={expertDesk === "mine" ? "" : "ghost"}
+                    onClick={() => setExpertDesk("mine")}
+                  >
+                    我的工单 ({mineInProgress.length})
+                  </button>
+                  <button type="button" className="ghost" onClick={() => refreshExpertDesk()}>
+                    刷新
+                  </button>
+                  <button type="button" className="ghost" onClick={expertLogout}>
+                    退出
+                  </button>
+                </div>
+              </section>
+
+              {expertDesk === "queue" && (
+                <section className="panel">
+                  <h2>待接池</h2>
+                  {!queue.length && <p className="muted">暂无待接工单</p>}
+                  {queue.map((t) => (
+                    <article
+                      key={t.id}
+                      className={`ticket-card ${t.sla_overdue ? "overdue" : ""}`}
+                    >
+                      <header className="ticket-head">
+                        <strong>#{t.id}</strong>
+                        <span className="pill">{t.plan_code}</span>
+                        <span className="pill">¥{t.price_yuan}</span>
+                        <span className={`pill ${t.sla_overdue ? "warn" : ""}`}>
+                          SLA {formatSla(t)}
+                        </span>
+                      </header>
+                      <pre className="body">{t.context_summary || "（无会话上下文）"}</pre>
+                      <button
+                        type="button"
+                        onClick={() => claimTicket(t.id)}
+                        disabled={loading}
+                      >
+                        领单
+                      </button>
+                    </article>
+                  ))}
+                </section>
+              )}
+
+              {expertDesk === "mine" && (
+                <section className="panel">
+                  <h2>处理中</h2>
+                  {!mineInProgress.length && !activeExpertTicket && (
+                    <p className="muted">暂无进行中工单，请先从待接池领单</p>
+                  )}
+                  {mineInProgress.map((t) => (
+                    <article
+                      key={t.id}
+                      className={`ticket-card ${t.sla_overdue ? "overdue" : ""} ${
+                        activeExpertTicket?.id === t.id ? "active" : ""
+                      }`}
+                    >
+                      <header className="ticket-head">
+                        <strong>#{t.id}</strong>
+                        <span className="pill state-answered">{t.status}</span>
+                        <span className={`pill ${t.sla_overdue ? "warn" : ""}`}>
+                          SLA {formatSla(t)}
+                        </span>
+                      </header>
+                      <button
+                        type="button"
+                        className="ghost"
+                        onClick={() => {
+                          setActiveExpertTicket(t);
+                          setReply("");
+                        }}
+                      >
+                        打开答复
+                      </button>
+                      <pre className="body">{t.context_summary || ""}</pre>
+                    </article>
+                  ))}
+
+                  {activeExpertTicket && (
+                    <div className="reply-box">
+                      <h3>书面答复 · #{activeExpertTicket.id}</h3>
+                      <textarea
+                        className="ask"
+                        rows={5}
+                        value={reply}
+                        onChange={(e) => setReply(e.target.value)}
+                        placeholder="向用户交付的书面答复（必填）"
+                      />
+                      <label className="check">
+                        <input
+                          type="checkbox"
+                          checked={suggestReflow}
+                          onChange={(e) => setSuggestReflow(e.target.checked)}
+                        />
+                        建议回流知识库
+                      </label>
+                      <button
+                        type="button"
+                        onClick={submitExpertReply}
+                        disabled={loading || !reply.trim()}
+                      >
+                        提交答复
+                      </button>
+                    </div>
+                  )}
+
+                  {!!mineDone.length && (
+                    <>
+                      <h3>最近完成</h3>
+                      <ul className="cites">
+                        {mineDone.map((t) => (
+                          <li key={t.id}>
+                            #{t.id} · {t.status} · ¥{t.price_yuan}
+                            {t.rating ? ` · 评分 ${t.rating}` : ""}
+                          </li>
+                        ))}
+                      </ul>
+                    </>
+                  )}
+                </section>
+              )}
+            </>
+          )}
+        </>
       )}
 
       {tab === "admin" && (

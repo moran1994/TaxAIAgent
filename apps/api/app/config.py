@@ -24,6 +24,7 @@ class Settings(BaseSettings):
     wechat_api_key: str = ""
     wechat_app_id: str = ""
     expert_ratio: float = 0.70
+    demo_expert_password: str = "demo1234"
 
 
 @lru_cache

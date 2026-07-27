@@ -47,13 +47,11 @@ TRANSITIONS: dict[str, set[str]] = {
 
 
 def ensure_demo_expert(db: Session) -> User:
-    expert = db.query(User).filter(User.phone == "expert-demo").one_or_none()
-    if expert:
-        return expert
-    expert = User(phone="expert-demo", display_name="试接专家甲", role="expert")
-    db.add(expert)
-    db.flush()
-    return expert
+    """Return primary demo expert (seeds passwords via auth service)."""
+    from app.services.auth import ensure_demo_experts
+
+    experts = ensure_demo_experts(db)
+    return experts[0]
 
 
 def _transition(ticket: Ticket, new_status: str) -> None:
@@ -304,11 +302,15 @@ def approve_refund(db: Session, ticket_id: int, actor: str = "ops") -> Ticket:
 
 
 def ticket_to_dict(ticket: Ticket, *, include_context: bool = False) -> dict:
-    sla_overdue = bool(
-        ticket.sla_deadline
-        and ticket.status in {TicketStatus.pending_accept.value, TicketStatus.in_progress.value}
-        and datetime.utcnow() > ticket.sla_deadline
-    )
+    active = ticket.status in {
+        TicketStatus.pending_accept.value,
+        TicketStatus.in_progress.value,
+    }
+    sla_overdue = bool(ticket.sla_deadline and active and datetime.utcnow() > ticket.sla_deadline)
+    sla_remaining_hours = None
+    if ticket.sla_deadline and active:
+        delta = ticket.sla_deadline - datetime.utcnow()
+        sla_remaining_hours = round(delta.total_seconds() / 3600, 1)
     data = {
         "id": ticket.id,
         "conversation_id": ticket.conversation_id,
@@ -320,6 +322,7 @@ def ticket_to_dict(ticket: Ticket, *, include_context: bool = False) -> dict:
         "expert_id": ticket.expert_id,
         "sla_deadline": ticket.sla_deadline.isoformat() if ticket.sla_deadline else None,
         "sla_overdue": sla_overdue,
+        "sla_remaining_hours": sla_remaining_hours,
         "expert_reply": ticket.expert_reply,
         "suggest_reflow": ticket.suggest_reflow,
         "rating": ticket.rating,

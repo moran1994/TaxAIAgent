@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from fastapi import Depends, FastAPI, HTTPException, Query
+from fastapi import Depends, FastAPI, Header, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 from sqlalchemy import func, select
@@ -14,11 +14,12 @@ from app.config import get_settings
 from app.db import get_db, init_db
 from app.knowledge.search import search_chunks
 from app.llm.gateway import LLMGateway, load_prompt
-from app.models import AuditLog, Chunk, Clause, LedgerEntry, Policy, PublishStatus, Ticket
+from app.models import AuditLog, Chunk, Clause, LedgerEntry, Policy, PublishStatus, Ticket, User
 from app.services.chat import answer_question, export_conversation
+from app.services import auth as auth_svc
 from app.services import tickets as ticket_svc
 
-app = FastAPI(title="TaxAIAgent API", version="0.3.0")
+app = FastAPI(title="TaxAIAgent API", version="0.5.0")
 
 app.add_middleware(
     CORSMiddleware,
@@ -56,6 +57,26 @@ class RateBody(BaseModel):
     comment: str | None = None
 
 
+class LoginBody(BaseModel):
+    phone: str = Field(min_length=1, max_length=32)
+    password: str = Field(min_length=1, max_length=128)
+
+
+def get_current_expert(
+    authorization: str | None = Header(default=None),
+    db: Session = Depends(get_db),
+) -> User:
+    token = auth_svc.parse_bearer(authorization)
+    user = auth_svc.user_from_token(db, token)
+    if not user or user.role not in {"expert", "admin"}:
+        raise HTTPException(401, "expert login required")
+    return user
+
+
+def _expert_public(user: User) -> dict:
+    return {"id": user.id, "phone": user.phone, "name": user.display_name, "role": user.role}
+
+
 @app.on_event("startup")
 def on_startup() -> None:
     from app.db import SessionLocal
@@ -63,7 +84,7 @@ def on_startup() -> None:
     init_db()
     db = SessionLocal()
     try:
-        ticket_svc.ensure_demo_expert(db)
+        auth_svc.ensure_demo_experts(db)
         db.commit()
     finally:
         db.close()
@@ -71,7 +92,7 @@ def on_startup() -> None:
 
 @app.get("/health")
 def health() -> dict:
-    return {"status": "ok", "env": get_settings().app_env, "version": "0.4.0"}
+    return {"status": "ok", "env": get_settings().app_env, "version": "0.5.0"}
 
 
 @app.get("/v1/meta/disclaimer")
@@ -331,21 +352,57 @@ def get_ticket(ticket_id: int, db: Session = Depends(get_db)) -> dict:
     return ticket_svc.ticket_to_dict(t, include_context=True)
 
 
+@app.post("/v1/auth/login")
+def auth_login(body: LoginBody, db: Session = Depends(get_db)) -> dict:
+    try:
+        user, session = auth_svc.login(db, phone=body.phone, password=body.password)
+    except ValueError as e:
+        raise HTTPException(401, str(e)) from e
+    return {
+        "token": session.token,
+        "expires_at": session.expires_at.isoformat() if session.expires_at else None,
+        "expert": _expert_public(user),
+    }
+
+
+@app.get("/v1/auth/me")
+def auth_me(expert: User = Depends(get_current_expert)) -> dict:
+    return {"expert": _expert_public(expert)}
+
+
+@app.post("/v1/auth/logout")
+def auth_logout(
+    authorization: str | None = Header(default=None),
+    db: Session = Depends(get_db),
+) -> dict:
+    token = auth_svc.parse_bearer(authorization)
+    ok = auth_svc.revoke_session(db, token) if token else False
+    return {"ok": ok}
+
+
 @app.get("/v1/expert/queue")
-def expert_queue(db: Session = Depends(get_db)) -> dict:
-    ticket_svc.ensure_demo_expert(db)
+def expert_queue(
+    expert: User = Depends(get_current_expert),
+    db: Session = Depends(get_db),
+) -> dict:
     rows = (
         db.query(Ticket)
         .filter(Ticket.status == "pending_accept")
-        .order_by(Ticket.id)
+        .order_by(Ticket.id.asc())
         .all()
     )
-    return {"items": [ticket_svc.ticket_to_dict(t, include_context=True) for t in rows]}
+    return {
+        "expert": _expert_public(expert),
+        "items": [ticket_svc.ticket_to_dict(t, include_context=True) for t in rows],
+    }
 
 
 @app.post("/v1/expert/tickets/{ticket_id}/claim")
-def expert_claim(ticket_id: int, db: Session = Depends(get_db)) -> dict:
-    expert = ticket_svc.ensure_demo_expert(db)
+def expert_claim(
+    ticket_id: int,
+    expert: User = Depends(get_current_expert),
+    db: Session = Depends(get_db),
+) -> dict:
     try:
         t = ticket_svc.claim_ticket(db, ticket_id, expert)
     except LookupError as e:
@@ -356,8 +413,12 @@ def expert_claim(ticket_id: int, db: Session = Depends(get_db)) -> dict:
 
 
 @app.post("/v1/expert/tickets/{ticket_id}/reply")
-def expert_reply(ticket_id: int, body: ExpertReply, db: Session = Depends(get_db)) -> dict:
-    expert = ticket_svc.ensure_demo_expert(db)
+def expert_reply(
+    ticket_id: int,
+    body: ExpertReply,
+    expert: User = Depends(get_current_expert),
+    db: Session = Depends(get_db),
+) -> dict:
     try:
         t = ticket_svc.submit_reply(
             db,
@@ -374,8 +435,10 @@ def expert_reply(ticket_id: int, body: ExpertReply, db: Session = Depends(get_db
 
 
 @app.get("/v1/expert/mine")
-def expert_mine(db: Session = Depends(get_db)) -> dict:
-    expert = ticket_svc.ensure_demo_expert(db)
+def expert_mine(
+    expert: User = Depends(get_current_expert),
+    db: Session = Depends(get_db),
+) -> dict:
     rows = (
         db.query(Ticket)
         .filter(Ticket.expert_id == expert.id)
@@ -383,7 +446,14 @@ def expert_mine(db: Session = Depends(get_db)) -> dict:
         .limit(50)
         .all()
     )
-    return {"expert": {"id": expert.id, "name": expert.display_name}, "items": [ticket_svc.ticket_to_dict(t) for t in rows]}
+    in_progress = [t for t in rows if t.status == "in_progress"]
+    done = [t for t in rows if t.status != "in_progress"]
+    return {
+        "expert": _expert_public(expert),
+        "in_progress": [ticket_svc.ticket_to_dict(t, include_context=True) for t in in_progress],
+        "items": [ticket_svc.ticket_to_dict(t, include_context=True) for t in rows],
+        "completed": [ticket_svc.ticket_to_dict(t) for t in done[:20]],
+    }
 
 
 @app.post("/v1/tickets/{ticket_id}/rate")

@@ -39,25 +39,31 @@ def _sqlite_migrate() -> None:
     if not str(engine.url).startswith("sqlite"):
         return
     with engine.begin() as conn:
-        cols = {
+        ticket_cols = {
             r[1]
             for r in conn.execute(text("PRAGMA table_info(tickets)")).fetchall()
         }
-        if not cols:
-            return
-        alters = [
-            ("plan_code", "VARCHAR(32) DEFAULT 'standard'"),
-            ("context_summary", "TEXT"),
-            ("suggest_reflow", "BOOLEAN DEFAULT 0"),
-            ("rating", "INTEGER"),
-            ("rating_comment", "TEXT"),
-            ("refund_requested", "BOOLEAN DEFAULT 0"),
-            ("payment_channel", "VARCHAR(32)"),
-            ("updated_at", "DATETIME"),
-        ]
-        for name, typ in alters:
-            if name not in cols:
-                conn.execute(text(f"ALTER TABLE tickets ADD COLUMN {name} {typ}"))
+        if ticket_cols:
+            alters = [
+                ("plan_code", "VARCHAR(32) DEFAULT 'standard'"),
+                ("context_summary", "TEXT"),
+                ("suggest_reflow", "BOOLEAN DEFAULT 0"),
+                ("rating", "INTEGER"),
+                ("rating_comment", "TEXT"),
+                ("refund_requested", "BOOLEAN DEFAULT 0"),
+                ("payment_channel", "VARCHAR(32)"),
+                ("updated_at", "DATETIME"),
+            ]
+            for name, typ in alters:
+                if name not in ticket_cols:
+                    conn.execute(text(f"ALTER TABLE tickets ADD COLUMN {name} {typ}"))
+
+        user_cols = {
+            r[1]
+            for r in conn.execute(text("PRAGMA table_info(users)")).fetchall()
+        }
+        if user_cols and "password_hash" not in user_cols:
+            conn.execute(text("ALTER TABLE users ADD COLUMN password_hash VARCHAR(256)"))
 
 
 def init_db() -> None:
