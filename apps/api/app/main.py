@@ -71,7 +71,7 @@ def on_startup() -> None:
 
 @app.get("/health")
 def health() -> dict:
-    return {"status": "ok", "env": get_settings().app_env, "version": "0.3.0"}
+    return {"status": "ok", "env": get_settings().app_env, "version": "0.4.0"}
 
 
 @app.get("/v1/meta/disclaimer")
@@ -274,6 +274,19 @@ def conversation_export(conversation_id: int, db: Session = Depends(get_db)) -> 
     if not data:
         raise HTTPException(404, "conversation not found")
     return data
+
+
+@app.get("/v1/meta/payment")
+def payment_meta() -> dict:
+    from app.services.payment import get_payment_provider
+
+    settings = get_settings()
+    p = get_payment_provider()
+    return {
+        "provider": p.name,
+        "configured_provider": settings.payment_provider,
+        "wechat_mch_configured": bool(settings.wechat_mch_id),
+    }
 
 
 @app.get("/v1/tickets/plans")

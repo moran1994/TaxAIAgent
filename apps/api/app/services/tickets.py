@@ -120,23 +120,29 @@ def create_ticket(
 
 
 def mock_pay(db: Session, ticket_id: int, *, fail: bool = False) -> Ticket:
+    from app.services.payment import get_payment_provider
+
     ticket = db.get(Ticket, ticket_id)
     if not ticket:
         raise LookupError("ticket not found")
-    if fail:
-        raise ValueError("mock payment failed")
     if ticket.status != TicketStatus.pending_payment.value:
         raise ValueError("ticket not awaiting payment")
+    provider = get_payment_provider()
+    result = provider.charge(
+        ticket_id=ticket.id, amount_cents=ticket.price_cents, fail=fail
+    )
+    if not result.ok:
+        raise ValueError(result.message)
     _transition(ticket, TicketStatus.pending_accept.value)
-    ticket.payment_channel = "mock_wechat"
+    ticket.payment_channel = result.channel
     ticket.sla_deadline = datetime.utcnow() + timedelta(hours=24)
     db.add(
         AuditLog(
             actor="pay",
-            action="mock_pay_success",
+            action="pay_success",
             entity_type="ticket",
             entity_id=str(ticket.id),
-            detail=ticket.payment_channel,
+            detail=f"{result.channel}:{result.external_id}",
         )
     )
     db.commit()
@@ -203,7 +209,11 @@ def submit_reply(
     return ticket
 
 
-def _write_ledger(db: Session, ticket: Ticket, expert_ratio: float = EXPERT_RATIO_DEFAULT) -> LedgerEntry:
+def _write_ledger(db: Session, ticket: Ticket, expert_ratio: float | None = None) -> LedgerEntry:
+    from app.config import get_settings
+
+    if expert_ratio is None:
+        expert_ratio = float(get_settings().expert_ratio or EXPERT_RATIO_DEFAULT)
     existing = db.query(LedgerEntry).filter(LedgerEntry.ticket_id == ticket.id).one_or_none()
     if existing:
         return existing

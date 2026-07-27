@@ -18,6 +18,12 @@ class Settings(BaseSettings):
     llm_api_base: str = ""
     llm_model: str = "gpt-4o-mini"
     disclaimer_path: str = "../../ops/m0/disclaimer-and-refusal.md"
+    payment_provider: str = "mock"  # mock | wechat
+    payment_force_fail: bool = False
+    wechat_mch_id: str = ""
+    wechat_api_key: str = ""
+    wechat_app_id: str = ""
+    expert_ratio: float = 0.70
 
 
 @lru_cache

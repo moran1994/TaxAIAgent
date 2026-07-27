@@ -1,0 +1,17 @@
+{
+  "corpus_id": "C07a",
+  "title": "财政部 税务总局关于增值税小规模纳税人减免增值税政策的公告",
+  "source_url": "https://fgk.chinatax.gov.cn/zcfgk/c102416/c5210457/content.html",
+  "doc_no": "财政部 税务总局公告2023年第19号",
+  "effective_from": "2023-01-01",
+  "note": "执行至2027-12-31；小规模免征与1%征收率",
+  "downloaded_at": "2026-07-27T03:08:44.861453+00:00",
+  "files": [
+    "source.html",
+    "source.txt"
+  ],
+  "bytes_html": 37899,
+  "bytes_txt": 2480,
+  "status": "raw_archived",
+  "publish_ready": false
+}

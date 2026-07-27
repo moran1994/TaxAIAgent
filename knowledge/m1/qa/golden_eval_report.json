@@ -17,7 +17,8 @@
       "hit_corpus": [
         "C02",
         "C04",
-        "C06"
+        "C06",
+        "C07b"
       ],
       "expect": [
         "C01",
@@ -25,14 +26,14 @@
       ],
       "state": "answered",
       "citation_ids": [
-        213,
-        176,
-        222,
-        248,
-        221
+        388,
+        339,
+        302,
+        348,
+        374
       ],
       "hard_hallucination": false,
-      "latency_ms": 40.4
+      "latency_ms": 76.14
     },
     {
       "id": "Q05",
@@ -47,14 +48,14 @@
       ],
       "state": "answered",
       "citation_ids": [
-        201,
-        154,
-        186,
-        248,
-        155
+        327,
+        280,
+        312,
+        374,
+        281
       ],
       "hard_hallucination": false,
-      "latency_ms": 20.15
+      "latency_ms": 92.64
     },
     {
       "id": "Q11",
@@ -62,8 +63,7 @@
       "hit_corpus": [
         "C01",
         "C02",
-        "C04",
-        "C05"
+        "C04"
       ],
       "expect": [
         "C01",
@@ -71,14 +71,14 @@
       ],
       "state": "answered",
       "citation_ids": [
-        189,
-        187,
-        148,
-        234,
-        226
+        315,
+        313,
+        274,
+        351,
+        352
       ],
       "hard_hallucination": false,
-      "latency_ms": 18.57
+      "latency_ms": 45.44
     },
     {
       "id": "Q29",
@@ -86,7 +86,8 @@
       "hit_corpus": [
         "C01",
         "C02",
-        "C05"
+        "C05",
+        "C07b"
       ],
       "expect": [
         "C01",
@@ -94,14 +95,14 @@
       ],
       "state": "answered",
       "citation_ids": [
-        200,
-        135,
-        237,
-        156,
-        134
+        326,
+        261,
+        388,
+        282,
+        363
       ],
       "hard_hallucination": false,
-      "latency_ms": 18.83
+      "latency_ms": 37.89
     },
     {
       "id": "Q37",
@@ -109,21 +110,22 @@
       "hit_corpus": [
         "C04",
         "C05",
-        "C06"
+        "C06",
+        "C07c"
       ],
       "expect": [
         "C05"
       ],
       "state": "answered",
       "citation_ids": [
-        238,
-        226,
-        252,
-        248,
-        234
+        400,
+        364,
+        352,
+        378,
+        374
       ],
       "hard_hallucination": false,
-      "latency_ms": 19.91
+      "latency_ms": 41.61
     },
     {
       "id": "Q38",
@@ -138,14 +140,14 @@
       ],
       "state": "answered",
       "citation_ids": [
-        228,
-        244,
-        226,
-        248,
-        237
+        354,
+        370,
+        352,
+        374,
+        363
       ],
       "hard_hallucination": false,
-      "latency_ms": 20.63
+      "latency_ms": 49.0
     },
     {
       "id": "Q41",
@@ -159,36 +161,36 @@
       ],
       "state": "answered",
       "citation_ids": [
-        244,
-        248,
-        226,
-        246,
-        247
+        370,
+        374,
+        352,
+        372,
+        373
       ],
       "hard_hallucination": false,
-      "latency_ms": 20.56
+      "latency_ms": 50.23
     },
     {
       "id": "Q21",
       "ok": true,
       "hit_corpus": [
         "C01",
-        "C02",
-        "C05"
+        "C07b",
+        "C07c"
       ],
       "expect": [
         "C01"
       ],
       "state": "answered",
       "citation_ids": [
-        131,
-        136,
-        130,
-        231,
-        183
+        257,
+        399,
+        262,
+        256,
+        382
       ],
       "hard_hallucination": false,
-      "latency_ms": 18.95
+      "latency_ms": 51.91
     }
   ]
 }

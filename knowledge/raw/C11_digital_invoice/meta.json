@@ -1,0 +1,17 @@
+{
+  "corpus_id": "C11",
+  "title": "国家税务总局关于推广应用全面数字化电子发票的公告",
+  "source_url": "https://fgk.chinatax.gov.cn/zcfgk/c100012/c5236067/content.html",
+  "doc_no": "国家税务总局公告（数电发票推广）",
+  "effective_from": null,
+  "note": "数电发票与红冲流程",
+  "downloaded_at": "2026-07-27T03:08:44.885713+00:00",
+  "files": [
+    "source.html",
+    "source.txt"
+  ],
+  "bytes_html": 42741,
+  "bytes_txt": 7192,
+  "status": "raw_archived",
+  "publish_ready": false
+}

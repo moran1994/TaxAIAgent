@@ -1,0 +1,17 @@
+{
+  "corpus_id": "C07c",
+  "title": "财政部 税务总局关于增值税法施行后增值税优惠政策衔接事项的公告",
+  "source_url": "https://fgk.chinatax.gov.cn/zcfgk/c102416/c5247434/content.html",
+  "doc_no": "财政部 税务总局公告（增值税法衔接）",
+  "effective_from": "2026-01-01",
+  "note": "增值税法施行后小规模起征点/1%等衔接",
+  "downloaded_at": "2026-07-27T03:08:44.880546+00:00",
+  "files": [
+    "source.html",
+    "source.txt"
+  ],
+  "bytes_html": 98943,
+  "bytes_txt": 57073,
+  "status": "raw_archived",
+  "publish_ready": false
+}

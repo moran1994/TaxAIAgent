@@ -28,6 +28,10 @@ DEFAULT_DIRS = [
     "C04_2019_39",
     "C05_liudi_2025_7",
     "C06_liudi_admin_2025_20",
+    "C07a_small_scale_2023_19",
+    "C07b_small_scale_admin_2023_1",
+    "C07c_vat_law_pref_bridge_2025",
+    "C11_digital_invoice",
 ]
 
 

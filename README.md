@@ -40,11 +40,18 @@ npm run dev
 
 ## 环境变量
 
-见 `.env.example`。`OPENAI_API_KEY` / 国内大模型 Key **不要提交到 Git**。
+见 `.env.example`。`LLM_API_KEY` / 微信商户密钥 **不要提交到 Git**。
+
+- `PAYMENT_PROVIDER=mock`（默认）或 `wechat`（需配置 `WECHAT_MCH_ID` 等；当前为 stub）
+- `EXPERT_RATIO=0.70` 分账专家占比
 
 ## 知识库原则
 
 权威原文为唯一真源；LLM 蒸馏仅辅助打标；禁止无原文入库。详见 backlog `M1-02`。
+
+已入库 P0：`C01`/`C02`/`C04`–`C07c`/`C11`（约 161 已发布切块）。`C03` 仍待下一批。
+
+前端 Tab：用户问答（多轮）· 专家工作台 · 知识运营 · 指标。
 
 ## 常用命令
 
