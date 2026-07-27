@@ -13,6 +13,7 @@
 | 红队 | `prd/red-team-PRD-智能税务知识库问答助手.md` |
 | 用户故事 P0 | `prd/user-stories-P0.md` |
 | Sprint 排期 | `prd/sprint-plan.md` |
+| Launch Pack | `launch/launch-pack.md` |
 | Discovery Plan | `discovery/discovery-plan.md` |
 | OST | `discovery/opportunity-solution-tree.md` |
 | 假设 / 优先级 / 实验 | `discovery/assumptions-A-expert.md` 等 |
