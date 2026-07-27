@@ -116,6 +116,9 @@ ARTICLE_RE = re.compile(
 ITEM_RE = re.compile(
     r"(?m)^(?P<full>(?P<num>[一二三四五六七八九十]+)、)\s*(?P<rest>.*)$"
 )
+SUBITEM_RE = re.compile(
+    r"(?m)^(?P<full>（(?P<num>[一二三四五六七八九十]+)）)\s*(?P<rest>.*)$"
+)
 
 
 def split_by_pattern(text: str, pattern: re.Pattern[str], label_fmt: str) -> list[ArticleChunk]:
@@ -134,6 +137,51 @@ def split_by_pattern(text: str, pattern: re.Pattern[str], label_fmt: str) -> lis
     return chunks
 
 
+def _refine_large_items(
+    source: str, chunks: list[ArticleChunk], *, max_chars: int = 2500
+) -> list[ArticleChunk]:
+    """Split oversized 一、/二、 bodies by （一）（二） sub-items when available."""
+    out: list[ArticleChunk] = []
+    for c in chunks:
+        if len(c.body) <= max_chars:
+            out.append(c)
+            continue
+        # Locate this body in source to keep absolute offsets for debugging
+        abs_start = source.find(c.body)
+        if abs_start < 0:
+            out.append(c)
+            continue
+        sub_matches = list(SUBITEM_RE.finditer(c.body))
+        if len(sub_matches) < 2:
+            out.append(c)
+            continue
+        # Optional preamble before first （一）
+        head = c.body[: sub_matches[0].start()].strip()
+        if head and len(head) > 20:
+            out.append(
+                ArticleChunk(
+                    clause_no=f"{c.clause_no}导语",
+                    body=head,
+                    start=abs_start,
+                    end=abs_start + sub_matches[0].start(),
+                )
+            )
+        for i, m in enumerate(sub_matches):
+            s = m.start()
+            e = sub_matches[i + 1].start() if i + 1 < len(sub_matches) else len(c.body)
+            body = c.body[s:e].strip()
+            raw = m.group("num")
+            out.append(
+                ArticleChunk(
+                    clause_no=f"{c.clause_no}（{raw}）",
+                    body=body,
+                    start=abs_start + s,
+                    end=abs_start + e,
+                )
+            )
+    return out
+
+
 def chunk_document(raw_text: str) -> tuple[str, list[ArticleChunk], str]:
     """Return (normalized_source, chunks, strategy)."""
     text = normalize_ws(strip_chrome(raw_text))
@@ -142,7 +190,6 @@ def chunk_document(raw_text: str) -> tuple[str, list[ArticleChunk], str]:
         return text, by_article, "article"
     by_item = split_by_pattern(text, ITEM_RE, "第{raw}项")
     if len(by_item) >= 2:
-        # normalize label to 一、 style readable
         fixed = []
         for c in by_item:
             raw = c.clause_no.replace("第", "").replace("项", "")
@@ -154,7 +201,9 @@ def chunk_document(raw_text: str) -> tuple[str, list[ArticleChunk], str]:
                     end=c.end,
                 )
             )
-        return text, fixed, "item"
+        refined = _refine_large_items(text, fixed)
+        strategy = "item+subitem" if len(refined) > len(fixed) else "item"
+        return text, refined, strategy
     # fallback: whole doc one chunk
     return text, [ArticleChunk(clause_no="全文", body=text, start=0, end=len(text))], "whole"
 

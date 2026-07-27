@@ -15,6 +15,41 @@
       "fidelity_fail": 0
     },
     {
+      "corpus_id": "C03a",
+      "strategy": "article",
+      "chunks": 55,
+      "fidelity_pass": 55,
+      "fidelity_fail": 0
+    },
+    {
+      "corpus_id": "C03b",
+      "strategy": "item+subitem",
+      "chunks": 10,
+      "fidelity_pass": 10,
+      "fidelity_fail": 0
+    },
+    {
+      "corpus_id": "C03c",
+      "strategy": "item+subitem",
+      "chunks": 16,
+      "fidelity_pass": 16,
+      "fidelity_fail": 0
+    },
+    {
+      "corpus_id": "C03d",
+      "strategy": "item+subitem",
+      "chunks": 46,
+      "fidelity_pass": 46,
+      "fidelity_fail": 0
+    },
+    {
+      "corpus_id": "C03e",
+      "strategy": "item",
+      "chunks": 9,
+      "fidelity_pass": 9,
+      "fidelity_fail": 0
+    },
+    {
       "corpus_id": "C04",
       "strategy": "item",
       "chunks": 9,
@@ -51,9 +86,9 @@
     },
     {
       "corpus_id": "C07c",
-      "strategy": "item",
-      "chunks": 6,
-      "fidelity_pass": 6,
+      "strategy": "item+subitem",
+      "chunks": 22,
+      "fidelity_pass": 22,
       "fidelity_fail": 0
     },
     {
@@ -894,6 +929,1230 @@
       "strategy": "article"
     },
     {
+      "corpus_id": "C03a",
+      "clause_no": "第1条",
+      "chars": 130,
+      "fidelity_ok": true,
+      "tags": "增值税",
+      "status": "published",
+      "strategy": "article"
+    },
+    {
+      "corpus_id": "C03a",
+      "clause_no": "第2条",
+      "chars": 106,
+      "fidelity_ok": true,
+      "tags": "增值税",
+      "status": "published",
+      "strategy": "article"
+    },
+    {
+      "corpus_id": "C03a",
+      "clause_no": "第3条",
+      "chars": 165,
+      "fidelity_ok": true,
+      "tags": "小规模",
+      "status": "published",
+      "strategy": "article"
+    },
+    {
+      "corpus_id": "C03a",
+      "clause_no": "第4条",
+      "chars": 112,
+      "fidelity_ok": true,
+      "tags": "增值税",
+      "status": "published",
+      "strategy": "article"
+    },
+    {
+      "corpus_id": "C03a",
+      "clause_no": "第5条",
+      "chars": 91,
+      "fidelity_ok": true,
+      "tags": "小规模",
+      "status": "published",
+      "strategy": "article"
+    },
+    {
+      "corpus_id": "C03a",
+      "clause_no": "第6条",
+      "chars": 80,
+      "fidelity_ok": true,
+      "tags": "增值税",
+      "status": "published",
+      "strategy": "article"
+    },
+    {
+      "corpus_id": "C03a",
+      "clause_no": "第7条",
+      "chars": 64,
+      "fidelity_ok": true,
+      "tags": "增值税",
+      "status": "published",
+      "strategy": "article"
+    },
+    {
+      "corpus_id": "C03a",
+      "clause_no": "第8条",
+      "chars": 39,
+      "fidelity_ok": true,
+      "tags": "增值税",
+      "status": "published",
+      "strategy": "article"
+    },
+    {
+      "corpus_id": "C03a",
+      "clause_no": "第9条",
+      "chars": 42,
+      "fidelity_ok": true,
+      "tags": "增值税",
+      "status": "published",
+      "strategy": "article"
+    },
+    {
+      "corpus_id": "C03a",
+      "clause_no": "第10条",
+      "chars": 280,
+      "fidelity_ok": true,
+      "tags": "发票",
+      "status": "published",
+      "strategy": "article"
+    },
+    {
+      "corpus_id": "C03a",
+      "clause_no": "第11条",
+      "chars": 26,
+      "fidelity_ok": true,
+      "tags": "增值税",
+      "status": "published",
+      "strategy": "article"
+    },
+    {
+      "corpus_id": "C03a",
+      "clause_no": "第12条",
+      "chars": 135,
+      "fidelity_ok": true,
+      "tags": "增值税",
+      "status": "published",
+      "strategy": "article"
+    },
+    {
+      "corpus_id": "C03a",
+      "clause_no": "第13条",
+      "chars": 154,
+      "fidelity_ok": true,
+      "tags": "增值税",
+      "status": "published",
+      "strategy": "article"
+    },
+    {
+      "corpus_id": "C03a",
+      "clause_no": "第14条",
+      "chars": 163,
+      "fidelity_ok": true,
+      "tags": "税率,视同销售",
+      "status": "published",
+      "strategy": "article"
+    },
+    {
+      "corpus_id": "C03a",
+      "clause_no": "第15条",
+      "chars": 174,
+      "fidelity_ok": true,
+      "tags": "税率",
+      "status": "published",
+      "strategy": "article"
+    },
+    {
+      "corpus_id": "C03a",
+      "clause_no": "第16条",
+      "chars": 55,
+      "fidelity_ok": true,
+      "tags": "税率",
+      "status": "published",
+      "strategy": "article"
+    },
+    {
+      "corpus_id": "C03a",
+      "clause_no": "第17条",
+      "chars": 30,
+      "fidelity_ok": true,
+      "tags": "小规模",
+      "status": "published",
+      "strategy": "article"
+    },
+    {
+      "corpus_id": "C03a",
+      "clause_no": "第18条",
+      "chars": 86,
+      "fidelity_ok": true,
+      "tags": "小规模",
+      "status": "published",
+      "strategy": "article"
+    },
+    {
+      "corpus_id": "C03a",
+      "clause_no": "第19条",
+      "chars": 28,
+      "fidelity_ok": true,
+      "tags": "小规模",
+      "status": "published",
+      "strategy": "article"
+    },
+    {
+      "corpus_id": "C03a",
+      "clause_no": "第20条",
+      "chars": 90,
+      "fidelity_ok": true,
+      "tags": "税率",
+      "status": "published",
+      "strategy": "article"
+    },
+    {
+      "corpus_id": "C03a",
+      "clause_no": "第21条",
+      "chars": 104,
+      "fidelity_ok": true,
+      "tags": "进项抵扣",
+      "status": "published",
+      "strategy": "article"
+    },
+    {
+      "corpus_id": "C03a",
+      "clause_no": "第22条",
+      "chars": 65,
+      "fidelity_ok": true,
+      "tags": "税率",
+      "status": "published",
+      "strategy": "article"
+    },
+    {
+      "corpus_id": "C03a",
+      "clause_no": "第23条",
+      "chars": 74,
+      "fidelity_ok": true,
+      "tags": "税率",
+      "status": "published",
+      "strategy": "article"
+    },
+    {
+      "corpus_id": "C03a",
+      "clause_no": "第24条",
+      "chars": 55,
+      "fidelity_ok": true,
+      "tags": "进项抵扣",
+      "status": "published",
+      "strategy": "article"
+    },
+    {
+      "corpus_id": "C03a",
+      "clause_no": "第25条",
+      "chars": 340,
+      "fidelity_ok": true,
+      "tags": "进项抵扣",
+      "status": "published",
+      "strategy": "article"
+    },
+    {
+      "corpus_id": "C03a",
+      "clause_no": "第26条",
+      "chars": 178,
+      "fidelity_ok": true,
+      "tags": "进项抵扣",
+      "status": "published",
+      "strategy": "article"
+    },
+    {
+      "corpus_id": "C03a",
+      "clause_no": "第27条",
+      "chars": 509,
+      "fidelity_ok": true,
+      "tags": "进项抵扣,小规模,免税优惠",
+      "status": "published",
+      "strategy": "article"
+    },
+    {
+      "corpus_id": "C03a",
+      "clause_no": "第28条",
+      "chars": 166,
+      "fidelity_ok": true,
+      "tags": "增值税",
+      "status": "published",
+      "strategy": "article"
+    },
+    {
+      "corpus_id": "C03a",
+      "clause_no": "第29条",
+      "chars": 169,
+      "fidelity_ok": true,
+      "tags": "进项抵扣,小规模,免税优惠",
+      "status": "published",
+      "strategy": "article"
+    },
+    {
+      "corpus_id": "C03a",
+      "clause_no": "第30条",
+      "chars": 119,
+      "fidelity_ok": true,
+      "tags": "进项抵扣,小规模,免税优惠",
+      "status": "published",
+      "strategy": "article"
+    },
+    {
+      "corpus_id": "C03a",
+      "clause_no": "第31条",
+      "chars": 138,
+      "fidelity_ok": true,
+      "tags": "税率,进项抵扣",
+      "status": "published",
+      "strategy": "article"
+    },
+    {
+      "corpus_id": "C03a",
+      "clause_no": "第32条",
+      "chars": 95,
+      "fidelity_ok": true,
+      "tags": "进项抵扣",
+      "status": "published",
+      "strategy": "article"
+    },
+    {
+      "corpus_id": "C03a",
+      "clause_no": "第33条",
+      "chars": 123,
+      "fidelity_ok": true,
+      "tags": "税率,进项抵扣,小规模",
+      "status": "published",
+      "strategy": "article"
+    },
+    {
+      "corpus_id": "C03a",
+      "clause_no": "第34条",
+      "chars": 71,
+      "fidelity_ok": true,
+      "tags": "税率,进项抵扣,小规模",
+      "status": "published",
+      "strategy": "article"
+    },
+    {
+      "corpus_id": "C03a",
+      "clause_no": "第35条",
+      "chars": 76,
+      "fidelity_ok": true,
+      "tags": "税率,小规模",
+      "status": "published",
+      "strategy": "article"
+    },
+    {
+      "corpus_id": "C03a",
+      "clause_no": "第36条",
+      "chars": 102,
+      "fidelity_ok": true,
+      "tags": "小规模",
+      "status": "published",
+      "strategy": "article"
+    },
+    {
+      "corpus_id": "C03a",
+      "clause_no": "第37条",
+      "chars": 141,
+      "fidelity_ok": true,
+      "tags": "发票",
+      "status": "published",
+      "strategy": "article"
+    },
+    {
+      "corpus_id": "C03a",
+      "clause_no": "第38条",
+      "chars": 110,
+      "fidelity_ok": true,
+      "tags": "增值税",
+      "status": "published",
+      "strategy": "article"
+    },
+    {
+      "corpus_id": "C03a",
+      "clause_no": "第39条",
+      "chars": 81,
+      "fidelity_ok": true,
+      "tags": "税率",
+      "status": "published",
+      "strategy": "article"
+    },
+    {
+      "corpus_id": "C03a",
+      "clause_no": "第40条",
+      "chars": 171,
+      "fidelity_ok": true,
+      "tags": "增值税",
+      "status": "published",
+      "strategy": "article"
+    },
+    {
+      "corpus_id": "C03a",
+      "clause_no": "第41条",
+      "chars": 53,
+      "fidelity_ok": true,
+      "tags": "增值税",
+      "status": "published",
+      "strategy": "article"
+    },
+    {
+      "corpus_id": "C03a",
+      "clause_no": "第42条",
+      "chars": 126,
+      "fidelity_ok": true,
+      "tags": "发票",
+      "status": "published",
+      "strategy": "article"
+    },
+    {
+      "corpus_id": "C03a",
+      "clause_no": "第43条",
+      "chars": 78,
+      "fidelity_ok": true,
+      "tags": "增值税",
+      "status": "published",
+      "strategy": "article"
+    },
+    {
+      "corpus_id": "C03a",
+      "clause_no": "第44条",
+      "chars": 301,
+      "fidelity_ok": true,
+      "tags": "纳税义务",
+      "status": "published",
+      "strategy": "article"
+    },
+    {
+      "corpus_id": "C03a",
+      "clause_no": "第45条",
+      "chars": 362,
+      "fidelity_ok": true,
+      "tags": "纳税义务,发票",
+      "status": "published",
+      "strategy": "article"
+    },
+    {
+      "corpus_id": "C03a",
+      "clause_no": "第46条",
+      "chars": 311,
+      "fidelity_ok": true,
+      "tags": "纳税义务",
+      "status": "published",
+      "strategy": "article"
+    },
+    {
+      "corpus_id": "C03a",
+      "clause_no": "第47条",
+      "chars": 298,
+      "fidelity_ok": true,
+      "tags": "小规模",
+      "status": "published",
+      "strategy": "article"
+    },
+    {
+      "corpus_id": "C03a",
+      "clause_no": "第48条",
+      "chars": 116,
+      "fidelity_ok": true,
+      "tags": "税率,出口退税",
+      "status": "published",
+      "strategy": "article"
+    },
+    {
+      "corpus_id": "C03a",
+      "clause_no": "第49条",
+      "chars": 78,
+      "fidelity_ok": true,
+      "tags": "小规模,免税优惠",
+      "status": "published",
+      "strategy": "article"
+    },
+    {
+      "corpus_id": "C03a",
+      "clause_no": "第50条",
+      "chars": 261,
+      "fidelity_ok": true,
+      "tags": "小规模,免税优惠",
+      "status": "published",
+      "strategy": "article"
+    },
+    {
+      "corpus_id": "C03a",
+      "clause_no": "第51条",
+      "chars": 71,
+      "fidelity_ok": true,
+      "tags": "增值税",
+      "status": "published",
+      "strategy": "article"
+    },
+    {
+      "corpus_id": "C03a",
+      "clause_no": "第52条",
+      "chars": 61,
+      "fidelity_ok": true,
+      "tags": "税率,出口退税",
+      "status": "published",
+      "strategy": "article"
+    },
+    {
+      "corpus_id": "C03a",
+      "clause_no": "第53条",
+      "chars": 132,
+      "fidelity_ok": true,
+      "tags": "免税优惠,发票",
+      "status": "published",
+      "strategy": "article"
+    },
+    {
+      "corpus_id": "C03a",
+      "clause_no": "第54条",
+      "chars": 47,
+      "fidelity_ok": true,
+      "tags": "小规模",
+      "status": "published",
+      "strategy": "article"
+    },
+    {
+      "corpus_id": "C03a",
+      "clause_no": "第55条",
+      "chars": 57,
+      "fidelity_ok": true,
+      "tags": "增值税",
+      "status": "published",
+      "strategy": "article"
+    },
+    {
+      "corpus_id": "C03b",
+      "clause_no": "一、导语",
+      "chars": 53,
+      "fidelity_ok": true,
+      "tags": "增值税",
+      "status": "published",
+      "strategy": "item+subitem"
+    },
+    {
+      "corpus_id": "C03b",
+      "clause_no": "一、（一）",
+      "chars": 854,
+      "fidelity_ok": true,
+      "tags": "增值税",
+      "status": "published",
+      "strategy": "item+subitem"
+    },
+    {
+      "corpus_id": "C03b",
+      "clause_no": "一、（二）",
+      "chars": 336,
+      "fidelity_ok": true,
+      "tags": "增值税",
+      "status": "published",
+      "strategy": "item+subitem"
+    },
+    {
+      "corpus_id": "C03b",
+      "clause_no": "一、（三）",
+      "chars": 284,
+      "fidelity_ok": true,
+      "tags": "增值税",
+      "status": "published",
+      "strategy": "item+subitem"
+    },
+    {
+      "corpus_id": "C03b",
+      "clause_no": "一、（四）",
+      "chars": 614,
+      "fidelity_ok": true,
+      "tags": "增值税",
+      "status": "published",
+      "strategy": "item+subitem"
+    },
+    {
+      "corpus_id": "C03b",
+      "clause_no": "一、（五）",
+      "chars": 773,
+      "fidelity_ok": true,
+      "tags": "增值税",
+      "status": "published",
+      "strategy": "item+subitem"
+    },
+    {
+      "corpus_id": "C03b",
+      "clause_no": "一、（六）",
+      "chars": 4224,
+      "fidelity_ok": true,
+      "tags": "出口退税",
+      "status": "published",
+      "strategy": "item+subitem"
+    },
+    {
+      "corpus_id": "C03b",
+      "clause_no": "一、（七）",
+      "chars": 1716,
+      "fidelity_ok": true,
+      "tags": "增值税",
+      "status": "published",
+      "strategy": "item+subitem"
+    },
+    {
+      "corpus_id": "C03b",
+      "clause_no": "二、",
+      "chars": 267,
+      "fidelity_ok": true,
+      "tags": "增值税",
+      "status": "published",
+      "strategy": "item+subitem"
+    },
+    {
+      "corpus_id": "C03b",
+      "clause_no": "三、",
+      "chars": 213,
+      "fidelity_ok": true,
+      "tags": "增值税",
+      "status": "published",
+      "strategy": "item+subitem"
+    },
+    {
+      "corpus_id": "C03c",
+      "clause_no": "一、导语",
+      "chars": 62,
+      "fidelity_ok": true,
+      "tags": "增值税",
+      "status": "published",
+      "strategy": "item+subitem"
+    },
+    {
+      "corpus_id": "C03c",
+      "clause_no": "一、（一）",
+      "chars": 237,
+      "fidelity_ok": true,
+      "tags": "税率",
+      "status": "published",
+      "strategy": "item+subitem"
+    },
+    {
+      "corpus_id": "C03c",
+      "clause_no": "一、（二）",
+      "chars": 2863,
+      "fidelity_ok": true,
+      "tags": "税率,进项抵扣,小规模,发票",
+      "status": "published",
+      "strategy": "item+subitem"
+    },
+    {
+      "corpus_id": "C03c",
+      "clause_no": "一、（五）",
+      "chars": 74,
+      "fidelity_ok": true,
+      "tags": "增值税",
+      "status": "published",
+      "strategy": "item+subitem"
+    },
+    {
+      "corpus_id": "C03c",
+      "clause_no": "一、（六）",
+      "chars": 462,
+      "fidelity_ok": true,
+      "tags": "小规模",
+      "status": "published",
+      "strategy": "item+subitem"
+    },
+    {
+      "corpus_id": "C03c",
+      "clause_no": "一、（七）",
+      "chars": 713,
+      "fidelity_ok": true,
+      "tags": "税率,小规模",
+      "status": "published",
+      "strategy": "item+subitem"
+    },
+    {
+      "corpus_id": "C03c",
+      "clause_no": "一、（八）",
+      "chars": 1143,
+      "fidelity_ok": true,
+      "tags": "税率,小规模",
+      "status": "published",
+      "strategy": "item+subitem"
+    },
+    {
+      "corpus_id": "C03c",
+      "clause_no": "一、（九）",
+      "chars": 529,
+      "fidelity_ok": true,
+      "tags": "税率,小规模",
+      "status": "published",
+      "strategy": "item+subitem"
+    },
+    {
+      "corpus_id": "C03c",
+      "clause_no": "一、（十）",
+      "chars": 398,
+      "fidelity_ok": true,
+      "tags": "增值税",
+      "status": "published",
+      "strategy": "item+subitem"
+    },
+    {
+      "corpus_id": "C03c",
+      "clause_no": "一、（十一）",
+      "chars": 154,
+      "fidelity_ok": true,
+      "tags": "增值税",
+      "status": "published",
+      "strategy": "item+subitem"
+    },
+    {
+      "corpus_id": "C03c",
+      "clause_no": "一、（十二）",
+      "chars": 124,
+      "fidelity_ok": true,
+      "tags": "纳税义务",
+      "status": "published",
+      "strategy": "item+subitem"
+    },
+    {
+      "corpus_id": "C03c",
+      "clause_no": "一、（十三）",
+      "chars": 268,
+      "fidelity_ok": true,
+      "tags": "增值税",
+      "status": "published",
+      "strategy": "item+subitem"
+    },
+    {
+      "corpus_id": "C03c",
+      "clause_no": "一、（十四）",
+      "chars": 117,
+      "fidelity_ok": true,
+      "tags": "增值税",
+      "status": "published",
+      "strategy": "item+subitem"
+    },
+    {
+      "corpus_id": "C03c",
+      "clause_no": "一、（十五）",
+      "chars": 48,
+      "fidelity_ok": true,
+      "tags": "税率",
+      "status": "published",
+      "strategy": "item+subitem"
+    },
+    {
+      "corpus_id": "C03c",
+      "clause_no": "一、（十六）",
+      "chars": 180,
+      "fidelity_ok": true,
+      "tags": "税率",
+      "status": "published",
+      "strategy": "item+subitem"
+    },
+    {
+      "corpus_id": "C03c",
+      "clause_no": "二、",
+      "chars": 1784,
+      "fidelity_ok": true,
+      "tags": "税率,进项抵扣,小规模,留抵退税,免税优惠",
+      "status": "published",
+      "strategy": "item+subitem"
+    },
+    {
+      "corpus_id": "C03d",
+      "clause_no": "一、（一）",
+      "chars": 295,
+      "fidelity_ok": true,
+      "tags": "免税优惠",
+      "status": "published",
+      "strategy": "item+subitem"
+    },
+    {
+      "corpus_id": "C03d",
+      "clause_no": "一、（二）",
+      "chars": 158,
+      "fidelity_ok": true,
+      "tags": "增值税",
+      "status": "published",
+      "strategy": "item+subitem"
+    },
+    {
+      "corpus_id": "C03d",
+      "clause_no": "一、（三）",
+      "chars": 18,
+      "fidelity_ok": true,
+      "tags": "增值税",
+      "status": "published",
+      "strategy": "item+subitem"
+    },
+    {
+      "corpus_id": "C03d",
+      "clause_no": "一、（四）",
+      "chars": 10,
+      "fidelity_ok": true,
+      "tags": "增值税",
+      "status": "published",
+      "strategy": "item+subitem"
+    },
+    {
+      "corpus_id": "C03d",
+      "clause_no": "一、（五）",
+      "chars": 109,
+      "fidelity_ok": true,
+      "tags": "增值税",
+      "status": "published",
+      "strategy": "item+subitem"
+    },
+    {
+      "corpus_id": "C03d",
+      "clause_no": "一、（六）",
+      "chars": 18,
+      "fidelity_ok": true,
+      "tags": "增值税",
+      "status": "published",
+      "strategy": "item+subitem"
+    },
+    {
+      "corpus_id": "C03d",
+      "clause_no": "一、（七）",
+      "chars": 414,
+      "fidelity_ok": true,
+      "tags": "增值税",
+      "status": "published",
+      "strategy": "item+subitem"
+    },
+    {
+      "corpus_id": "C03d",
+      "clause_no": "一、（八）",
+      "chars": 642,
+      "fidelity_ok": true,
+      "tags": "免税优惠",
+      "status": "published",
+      "strategy": "item+subitem"
+    },
+    {
+      "corpus_id": "C03d",
+      "clause_no": "一、（九）",
+      "chars": 15,
+      "fidelity_ok": true,
+      "tags": "增值税",
+      "status": "published",
+      "strategy": "item+subitem"
+    },
+    {
+      "corpus_id": "C03d",
+      "clause_no": "一、（十）",
+      "chars": 301,
+      "fidelity_ok": true,
+      "tags": "增值税",
+      "status": "published",
+      "strategy": "item+subitem"
+    },
+    {
+      "corpus_id": "C03d",
+      "clause_no": "一、（十一）",
+      "chars": 67,
+      "fidelity_ok": true,
+      "tags": "增值税",
+      "status": "published",
+      "strategy": "item+subitem"
+    },
+    {
+      "corpus_id": "C03d",
+      "clause_no": "一、（十二）",
+      "chars": 31,
+      "fidelity_ok": true,
+      "tags": "增值税",
+      "status": "published",
+      "strategy": "item+subitem"
+    },
+    {
+      "corpus_id": "C03d",
+      "clause_no": "一、（十三）",
+      "chars": 50,
+      "fidelity_ok": true,
+      "tags": "增值税",
+      "status": "published",
+      "strategy": "item+subitem"
+    },
+    {
+      "corpus_id": "C03d",
+      "clause_no": "一、（十四）",
+      "chars": 12,
+      "fidelity_ok": true,
+      "tags": "增值税",
+      "status": "published",
+      "strategy": "item+subitem"
+    },
+    {
+      "corpus_id": "C03d",
+      "clause_no": "一、（十五）",
+      "chars": 15,
+      "fidelity_ok": true,
+      "tags": "增值税",
+      "status": "published",
+      "strategy": "item+subitem"
+    },
+    {
+      "corpus_id": "C03d",
+      "clause_no": "一、（十六）",
+      "chars": 161,
+      "fidelity_ok": true,
+      "tags": "增值税",
+      "status": "published",
+      "strategy": "item+subitem"
+    },
+    {
+      "corpus_id": "C03d",
+      "clause_no": "一、（十七）",
+      "chars": 203,
+      "fidelity_ok": true,
+      "tags": "增值税",
+      "status": "published",
+      "strategy": "item+subitem"
+    },
+    {
+      "corpus_id": "C03d",
+      "clause_no": "一、（十八）",
+      "chars": 210,
+      "fidelity_ok": true,
+      "tags": "发票",
+      "status": "published",
+      "strategy": "item+subitem"
+    },
+    {
+      "corpus_id": "C03d",
+      "clause_no": "一、（十九）",
+      "chars": 818,
+      "fidelity_ok": true,
+      "tags": "增值税",
+      "status": "published",
+      "strategy": "item+subitem"
+    },
+    {
+      "corpus_id": "C03d",
+      "clause_no": "一、（二十）",
+      "chars": 167,
+      "fidelity_ok": true,
+      "tags": "增值税",
+      "status": "published",
+      "strategy": "item+subitem"
+    },
+    {
+      "corpus_id": "C03d",
+      "clause_no": "一、（二十一）",
+      "chars": 374,
+      "fidelity_ok": true,
+      "tags": "增值税",
+      "status": "published",
+      "strategy": "item+subitem"
+    },
+    {
+      "corpus_id": "C03d",
+      "clause_no": "一、（二十二）",
+      "chars": 184,
+      "fidelity_ok": true,
+      "tags": "增值税",
+      "status": "published",
+      "strategy": "item+subitem"
+    },
+    {
+      "corpus_id": "C03d",
+      "clause_no": "一、（二十三）",
+      "chars": 426,
+      "fidelity_ok": true,
+      "tags": "增值税",
+      "status": "published",
+      "strategy": "item+subitem"
+    },
+    {
+      "corpus_id": "C03d",
+      "clause_no": "一、（二十四）",
+      "chars": 1091,
+      "fidelity_ok": true,
+      "tags": "免税优惠",
+      "status": "published",
+      "strategy": "item+subitem"
+    },
+    {
+      "corpus_id": "C03d",
+      "clause_no": "一、（二十五）",
+      "chars": 405,
+      "fidelity_ok": true,
+      "tags": "增值税",
+      "status": "published",
+      "strategy": "item+subitem"
+    },
+    {
+      "corpus_id": "C03d",
+      "clause_no": "一、（二十六）",
+      "chars": 367,
+      "fidelity_ok": true,
+      "tags": "免税优惠,发票",
+      "status": "published",
+      "strategy": "item+subitem"
+    },
+    {
+      "corpus_id": "C03d",
+      "clause_no": "一、（二十七）",
+      "chars": 195,
+      "fidelity_ok": true,
+      "tags": "增值税",
+      "status": "published",
+      "strategy": "item+subitem"
+    },
+    {
+      "corpus_id": "C03d",
+      "clause_no": "一、（二十八）",
+      "chars": 212,
+      "fidelity_ok": true,
+      "tags": "增值税",
+      "status": "published",
+      "strategy": "item+subitem"
+    },
+    {
+      "corpus_id": "C03d",
+      "clause_no": "一、（二十九）",
+      "chars": 175,
+      "fidelity_ok": true,
+      "tags": "免税优惠,发票",
+      "status": "published",
+      "strategy": "item+subitem"
+    },
+    {
+      "corpus_id": "C03d",
+      "clause_no": "一、（三十）",
+      "chars": 151,
+      "fidelity_ok": true,
+      "tags": "增值税",
+      "status": "published",
+      "strategy": "item+subitem"
+    },
+    {
+      "corpus_id": "C03d",
+      "clause_no": "一、（三十一）",
+      "chars": 404,
+      "fidelity_ok": true,
+      "tags": "发票",
+      "status": "published",
+      "strategy": "item+subitem"
+    },
+    {
+      "corpus_id": "C03d",
+      "clause_no": "一、（三十二）",
+      "chars": 20,
+      "fidelity_ok": true,
+      "tags": "增值税",
+      "status": "published",
+      "strategy": "item+subitem"
+    },
+    {
+      "corpus_id": "C03d",
+      "clause_no": "一、（三十三）",
+      "chars": 16,
+      "fidelity_ok": true,
+      "tags": "增值税",
+      "status": "published",
+      "strategy": "item+subitem"
+    },
+    {
+      "corpus_id": "C03d",
+      "clause_no": "一、（三十四）",
+      "chars": 47,
+      "fidelity_ok": true,
+      "tags": "增值税",
+      "status": "published",
+      "strategy": "item+subitem"
+    },
+    {
+      "corpus_id": "C03d",
+      "clause_no": "一、（三十五）",
+      "chars": 26,
+      "fidelity_ok": true,
+      "tags": "增值税",
+      "status": "published",
+      "strategy": "item+subitem"
+    },
+    {
+      "corpus_id": "C03d",
+      "clause_no": "一、（三十六）",
+      "chars": 152,
+      "fidelity_ok": true,
+      "tags": "视同销售",
+      "status": "published",
+      "strategy": "item+subitem"
+    },
+    {
+      "corpus_id": "C03d",
+      "clause_no": "一、（三十七）",
+      "chars": 38,
+      "fidelity_ok": true,
+      "tags": "增值税",
+      "status": "published",
+      "strategy": "item+subitem"
+    },
+    {
+      "corpus_id": "C03d",
+      "clause_no": "一、（三十八）",
+      "chars": 51,
+      "fidelity_ok": true,
+      "tags": "增值税",
+      "status": "published",
+      "strategy": "item+subitem"
+    },
+    {
+      "corpus_id": "C03d",
+      "clause_no": "一、（三十九）",
+      "chars": 217,
+      "fidelity_ok": true,
+      "tags": "免税优惠",
+      "status": "published",
+      "strategy": "item+subitem"
+    },
+    {
+      "corpus_id": "C03d",
+      "clause_no": "一、（四十）",
+      "chars": 183,
+      "fidelity_ok": true,
+      "tags": "免税优惠",
+      "status": "published",
+      "strategy": "item+subitem"
+    },
+    {
+      "corpus_id": "C03d",
+      "clause_no": "二、",
+      "chars": 426,
+      "fidelity_ok": true,
+      "tags": "增值税",
+      "status": "published",
+      "strategy": "item+subitem"
+    },
+    {
+      "corpus_id": "C03d",
+      "clause_no": "三、（一）",
+      "chars": 1766,
+      "fidelity_ok": true,
+      "tags": "免税优惠",
+      "status": "published",
+      "strategy": "item+subitem"
+    },
+    {
+      "corpus_id": "C03d",
+      "clause_no": "三、（二）",
+      "chars": 1939,
+      "fidelity_ok": true,
+      "tags": "免税优惠",
+      "status": "published",
+      "strategy": "item+subitem"
+    },
+    {
+      "corpus_id": "C03d",
+      "clause_no": "四、",
+      "chars": 156,
+      "fidelity_ok": true,
+      "tags": "增值税",
+      "status": "published",
+      "strategy": "item+subitem"
+    },
+    {
+      "corpus_id": "C03d",
+      "clause_no": "五、",
+      "chars": 434,
+      "fidelity_ok": true,
+      "tags": "税率,免税优惠,发票",
+      "status": "published",
+      "strategy": "item+subitem"
+    },
+    {
+      "corpus_id": "C03d",
+      "clause_no": "六、",
+      "chars": 109,
+      "fidelity_ok": true,
+      "tags": "免税优惠",
+      "status": "published",
+      "strategy": "item+subitem"
+    },
+    {
+      "corpus_id": "C03e",
+      "clause_no": "一、",
+      "chars": 391,
+      "fidelity_ok": true,
+      "tags": "税率,出口退税",
+      "status": "published",
+      "strategy": "item"
+    },
+    {
+      "corpus_id": "C03e",
+      "clause_no": "二、",
+      "chars": 517,
+      "fidelity_ok": true,
+      "tags": "税率,免税优惠,出口退税",
+      "status": "published",
+      "strategy": "item"
+    },
+    {
+      "corpus_id": "C03e",
+      "clause_no": "三、",
+      "chars": 310,
+      "fidelity_ok": true,
+      "tags": "税率,出口退税",
+      "status": "published",
+      "strategy": "item"
+    },
+    {
+      "corpus_id": "C03e",
+      "clause_no": "四、",
+      "chars": 297,
+      "fidelity_ok": true,
+      "tags": "税率,进项抵扣,小规模,免税优惠,出口退税",
+      "status": "published",
+      "strategy": "item"
+    },
+    {
+      "corpus_id": "C03e",
+      "clause_no": "五、",
+      "chars": 88,
+      "fidelity_ok": true,
+      "tags": "税率,出口退税",
+      "status": "published",
+      "strategy": "item"
+    },
+    {
+      "corpus_id": "C03e",
+      "clause_no": "六、",
+      "chars": 78,
+      "fidelity_ok": true,
+      "tags": "税率,出口退税",
+      "status": "published",
+      "strategy": "item"
+    },
+    {
+      "corpus_id": "C03e",
+      "clause_no": "七、",
+      "chars": 100,
+      "fidelity_ok": true,
+      "tags": "增值税",
+      "status": "published",
+      "strategy": "item"
+    },
+    {
+      "corpus_id": "C03e",
+      "clause_no": "八、",
+      "chars": 47,
+      "fidelity_ok": true,
+      "tags": "增值税",
+      "status": "published",
+      "strategy": "item"
+    },
+    {
+      "corpus_id": "C03e",
+      "clause_no": "九、",
+      "chars": 163,
+      "fidelity_ok": true,
+      "tags": "税率,出口退税",
+      "status": "published",
+      "strategy": "item"
+    },
+    {
       "corpus_id": "C04",
       "clause_no": "一、",
       "chars": 73,
@@ -1359,34 +2618,178 @@
       "fidelity_ok": true,
       "tags": "小规模,纳税义务",
       "status": "published",
-      "strategy": "item"
+      "strategy": "item+subitem"
     },
     {
       "corpus_id": "C07c",
-      "clause_no": "二、",
-      "chars": 10755,
+      "clause_no": "二、（一）",
+      "chars": 3349,
       "fidelity_ok": true,
-      "tags": "税率,视同销售,免税优惠,发票",
+      "tags": "税率,视同销售,免税优惠",
       "status": "published",
-      "strategy": "item"
+      "strategy": "item+subitem"
     },
     {
       "corpus_id": "C07c",
-      "clause_no": "三、",
-      "chars": 3051,
+      "clause_no": "二、（二）",
+      "chars": 7394,
+      "fidelity_ok": true,
+      "tags": "免税优惠,发票",
+      "status": "published",
+      "strategy": "item+subitem"
+    },
+    {
+      "corpus_id": "C07c",
+      "clause_no": "三、（一）",
+      "chars": 1495,
+      "fidelity_ok": true,
+      "tags": "税率,小规模",
+      "status": "published",
+      "strategy": "item+subitem"
+    },
+    {
+      "corpus_id": "C07c",
+      "clause_no": "三、（二）",
+      "chars": 549,
+      "fidelity_ok": true,
+      "tags": "税率,小规模",
+      "status": "published",
+      "strategy": "item+subitem"
+    },
+    {
+      "corpus_id": "C07c",
+      "clause_no": "三、（三）",
+      "chars": 745,
       "fidelity_ok": true,
       "tags": "税率,进项抵扣,小规模",
       "status": "published",
-      "strategy": "item"
+      "strategy": "item+subitem"
     },
     {
       "corpus_id": "C07c",
-      "clause_no": "四、",
-      "chars": 2810,
+      "clause_no": "三、（四）",
+      "chars": 245,
       "fidelity_ok": true,
-      "tags": "进项抵扣,小规模,发票",
+      "tags": "税率,小规模",
       "status": "published",
-      "strategy": "item"
+      "strategy": "item+subitem"
+    },
+    {
+      "corpus_id": "C07c",
+      "clause_no": "四、导语",
+      "chars": 65,
+      "fidelity_ok": true,
+      "tags": "增值税",
+      "status": "published",
+      "strategy": "item+subitem"
+    },
+    {
+      "corpus_id": "C07c",
+      "clause_no": "四、（一）",
+      "chars": 127,
+      "fidelity_ok": true,
+      "tags": "发票",
+      "status": "published",
+      "strategy": "item+subitem"
+    },
+    {
+      "corpus_id": "C07c",
+      "clause_no": "四、（二）",
+      "chars": 81,
+      "fidelity_ok": true,
+      "tags": "增值税",
+      "status": "published",
+      "strategy": "item+subitem"
+    },
+    {
+      "corpus_id": "C07c",
+      "clause_no": "四、（三）",
+      "chars": 672,
+      "fidelity_ok": true,
+      "tags": "增值税",
+      "status": "published",
+      "strategy": "item+subitem"
+    },
+    {
+      "corpus_id": "C07c",
+      "clause_no": "四、（四）",
+      "chars": 42,
+      "fidelity_ok": true,
+      "tags": "小规模",
+      "status": "published",
+      "strategy": "item+subitem"
+    },
+    {
+      "corpus_id": "C07c",
+      "clause_no": "四、（五）",
+      "chars": 193,
+      "fidelity_ok": true,
+      "tags": "增值税",
+      "status": "published",
+      "strategy": "item+subitem"
+    },
+    {
+      "corpus_id": "C07c",
+      "clause_no": "四、（六）",
+      "chars": 85,
+      "fidelity_ok": true,
+      "tags": "增值税",
+      "status": "published",
+      "strategy": "item+subitem"
+    },
+    {
+      "corpus_id": "C07c",
+      "clause_no": "四、（七）",
+      "chars": 66,
+      "fidelity_ok": true,
+      "tags": "小规模",
+      "status": "published",
+      "strategy": "item+subitem"
+    },
+    {
+      "corpus_id": "C07c",
+      "clause_no": "四、（八）",
+      "chars": 118,
+      "fidelity_ok": true,
+      "tags": "小规模",
+      "status": "published",
+      "strategy": "item+subitem"
+    },
+    {
+      "corpus_id": "C07c",
+      "clause_no": "四、（九）",
+      "chars": 531,
+      "fidelity_ok": true,
+      "tags": "增值税",
+      "status": "published",
+      "strategy": "item+subitem"
+    },
+    {
+      "corpus_id": "C07c",
+      "clause_no": "四、（十）",
+      "chars": 39,
+      "fidelity_ok": true,
+      "tags": "增值税",
+      "status": "published",
+      "strategy": "item+subitem"
+    },
+    {
+      "corpus_id": "C07c",
+      "clause_no": "四、（十一）",
+      "chars": 603,
+      "fidelity_ok": true,
+      "tags": "进项抵扣",
+      "status": "published",
+      "strategy": "item+subitem"
+    },
+    {
+      "corpus_id": "C07c",
+      "clause_no": "四、（十二）",
+      "chars": 176,
+      "fidelity_ok": true,
+      "tags": "发票",
+      "status": "published",
+      "strategy": "item+subitem"
     },
     {
       "corpus_id": "C07c",
@@ -1395,7 +2798,7 @@
       "fidelity_ok": true,
       "tags": "税率,视同销售,进项抵扣,小规模,留抵退税,发票",
       "status": "published",
-      "strategy": "item"
+      "strategy": "item+subitem"
     },
     {
       "corpus_id": "C07c",
@@ -1404,7 +2807,7 @@
       "fidelity_ok": true,
       "tags": "小规模",
       "status": "published",
-      "strategy": "item"
+      "strategy": "item+subitem"
     },
     {
       "corpus_id": "C11",

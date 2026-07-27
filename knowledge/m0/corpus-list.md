@@ -26,7 +26,7 @@
 |----|-----------|----------|-------------------------------|----------|------------|----------|
 | C01 | 《中华人民共和国增值税法》 | 税率/纳税义务/视同销售/进项 | https://fgk.chinatax.gov.cn/zcfgk/c100009/c5237365/content.html | **2026-01-01 施行**；暂行条例同时废止 | P0 | ✅ `knowledge/raw/C01_vat_law/` |
 | C02 | 《中华人民共和国增值税法实施条例》 | 细则配套 | https://fgk.chinatax.gov.cn/zcfgk/c100010/c5246349/content.html | 国务院令第826号；2026-01-01 施行 | P0 | ✅ `knowledge/raw/C02_vat_law_reg/` |
-| C03 | 财税〔2016〕36号（营改增试点办法等，现行有效部分） | 应税服务/进项/差额 | fgk / 财政部公开文件 | **导入前须核对废止条款**；仅保留仍有效问答相关条 | P0 | ☐ 下一批 |
+| C03 | 财税〔2016〕36号（营改增试点办法等，现行有效部分） | 应税服务/进项/差额 | https://fgk.chinatax.gov.cn/zcfgk/c102416/c5203752/content.html | **部分条款已被后续调整**；切块为 `C03a`–`C03e` | P0 | ✅ `C03_caishui_2016_36/` + `C03a`–`C03e` |
 | C04 | 财政部 税务总局 海关总署公告 2019年第39号 | 深化增值税改革/税率 | https://fgk.chinatax.gov.cn/zcfgk/c102416/c5202330/content.html | 部分条款被后续公告调整；切块时标效力 | P0 | ✅ `knowledge/raw/C04_2019_39/` |
 | C05 | 财政部 税务总局公告 2025年第7号《关于完善增值税期末留抵退税政策的公告》 | 留抵退税 | https://szs.mof.gov.cn/zhengcefabu/202508/t20250822_3970658.htm | 自 2025-09-01 施行；替代多份旧留抵公告 | P0 | ✅ `knowledge/raw/C05_liudi_2025_7/` |
 | C06 | 国家税务总局公告 2025年第20号《关于办理增值税期末留抵退税有关征管事项的公告》 | 留抵征管 | https://fgk.chinatax.gov.cn/zcfgk/c100012/c5242455/content.html | 与 C05 配套 | P0 | ✅ `knowledge/raw/C06_liudi_admin_2025_20/` |
@@ -49,9 +49,9 @@
 
 ## 落库检查（每篇必填）
 
-- [x] C01/C02/C04/C05/C06/C07a–c/C11 已下载到 `knowledge/raw/<dir>/`（html+txt+meta）
-- [ ] C03 原文下载（下一批）
-- [x] 切块质检后 `published`（M1-02；以 DB 为准）
+- [x] C01–C07c/C11 已下载到 `knowledge/raw/<dir>/`（html+txt+meta；C03 含官方 DOC 附件）
+- [x] C03 拆分为 C03a–C03e 切块发布
+- [x] 切块质检后 `published`（以 DB 为准）
 - [x] 记录：来源 URL、文号、发布日、生效日、废止/被替代关系（meta.json 已含部分）
 - [ ] 版权与转载声明已阅（官方公开文本）
 - [x] **未**使用竞品库全文

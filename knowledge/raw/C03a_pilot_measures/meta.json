@@ -1,0 +1,18 @@
+{
+  "corpus_id": "C03a",
+  "title": "营业税改征增值税试点实施办法（财税〔2016〕36号附件1）",
+  "source_url": "https://fgk.chinatax.gov.cn/zcfgk/c102416/c5203752/content.html",
+  "doc_no": "财税〔2016〕36号附件1",
+  "effective_from": "2016-05-01",
+  "note": "实施办法正文（不含销售服务注释）；部分条款已被后续文件调整",
+  "parent_corpus": "C03",
+  "downloaded_at": "2026-07-27T03:15:21.717117+00:00",
+  "files": [
+    "source.html",
+    "source.txt"
+  ],
+  "bytes_html": 39066,
+  "bytes_txt": 21552,
+  "status": "raw_archived",
+  "publish_ready": false
+}

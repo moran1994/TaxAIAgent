@@ -25,6 +25,11 @@ REPORT_DIR = REPO_ROOT / "knowledge" / "m1" / "qa"
 DEFAULT_DIRS = [
     "C01_vat_law",
     "C02_vat_law_reg",
+    "C03a_pilot_measures",
+    "C03b_sales_service_notes",
+    "C03c_pilot_matters",
+    "C03d_transition_policy",
+    "C03e_cross_border",
     "C04_2019_39",
     "C05_liudi_2025_7",
     "C06_liudi_admin_2025_20",
