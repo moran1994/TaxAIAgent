@@ -1,12 +1,15 @@
 {
+  "seed": "knowledge/m0/golden-eval-seed.json",
   "definition": {
-    "citation_correct": "top5 命中期望 corpus_id 任一",
+    "corpus_hit": "top5 命中期望 corpus_id 任一",
+    "clause_ref_hit": "top8 命中 clause_ref（corpus_id:clause_no）任一",
     "hard_hallucination": "answered 且 citation_ids 为空",
-    "release_gate": "recall>=0.70 and hard_hallucination<=0.05"
+    "release_gate": "corpus_recall>=0.70 and hard_hallucination<=0.05"
   },
   "metrics": {
-    "n": 8,
+    "n": 22,
     "retrieval_hit_rate": 1.0,
+    "clause_ref_hit_rate": 1.0,
     "hard_hallucination_rate": 0.0,
     "gate_ok": true
   },
@@ -14,173 +17,525 @@
     {
       "id": "Q01",
       "ok": true,
+      "clause_ref_ok": true,
       "hit_corpus": [
         "C02",
-        "C03e",
         "C04",
         "C07b"
       ],
+      "hit_clauses_top5": [
+        "C04:三、",
+        "C04:四、",
+        "C04:一、",
+        "C02:第36条",
+        "C07b:七、"
+      ],
+      "hit_clauses_top8": [
+        "C04:三、",
+        "C04:四、",
+        "C04:一、",
+        "C02:第36条",
+        "C07b:七、",
+        "C03c:二、",
+        "C07c:三、（三）",
+        "C03d:二、"
+      ],
       "expect": [
         "C01",
-        "C02"
+        "C04"
+      ],
+      "clause_ref": [
+        "C01:第10条",
+        "C04:一、"
       ],
       "state": "answered",
       "citation_ids": [
-        740,
-        555,
-        518,
-        692,
-        700
+        699,
+        700,
+        697,
+        542,
+        740
       ],
       "hard_hallucination": false,
-      "latency_ms": 121.88
+      "latency_ms": 289.83,
+      "tags": [
+        "税率"
+      ]
+    },
+    {
+      "id": "Q02",
+      "ok": true,
+      "clause_ref_ok": true,
+      "hit_corpus": [
+        "C03c",
+        "C07a",
+        "C07b",
+        "C07c"
+      ],
+      "hit_clauses_top5": [
+        "C07c:三、（三）",
+        "C07b:七、",
+        "C03c:一、（八）",
+        "C07a:二、",
+        "C03c:一、（九）"
+      ],
+      "hit_clauses_top8": [
+        "C07c:三、（三）",
+        "C07b:七、",
+        "C03c:一、（八）",
+        "C07a:二、",
+        "C03c:一、（九）",
+        "C03c:一、（一）",
+        "C03a:第3条",
+        "C07b:五、"
+      ],
+      "expect": [
+        "C07a",
+        "C07b"
+      ],
+      "clause_ref": [
+        "C07a:二、"
+      ],
+      "state": "answered",
+      "citation_ids": [
+        753,
+        740,
+        632,
+        732,
+        633
+      ],
+      "hard_hallucination": false,
+      "latency_ms": 103.18,
+      "tags": [
+        "小规模",
+        "征收率"
+      ]
     },
     {
       "id": "Q05",
       "ok": true,
+      "clause_ref_ok": true,
       "hit_corpus": [
         "C01",
         "C02",
+        "C03a",
         "C03c",
-        "C06"
+        "C07c"
+      ],
+      "hit_clauses_top5": [
+        "C03c:二、",
+        "C07c:二、（二）",
+        "C01:第5条",
+        "C02:第25条",
+        "C03a:第27条"
+      ],
+      "hit_clauses_top8": [
+        "C03c:二、",
+        "C07c:二、（二）",
+        "C01:第5条",
+        "C02:第25条",
+        "C03a:第27条",
+        "C01:第28条",
+        "C02:第22条",
+        "C04:三、"
       ],
       "expect": [
         "C01"
       ],
+      "clause_ref": [
+        "C01:第5条"
+      ],
       "state": "answered",
       "citation_ids": [
-        543,
-        496,
         641,
-        528,
-        726
+        750,
+        473,
+        531,
+        587
       ],
       "hard_hallucination": false,
-      "latency_ms": 91.38
+      "latency_ms": 90.22,
+      "tags": [
+        "视同销售"
+      ]
+    },
+    {
+      "id": "Q07",
+      "ok": true,
+      "clause_ref_ok": true,
+      "hit_corpus": [
+        "C03b",
+        "C03c",
+        "C03e"
+      ],
+      "hit_clauses_top5": [
+        "C03b:一、（六）",
+        "C03b:一、（七）",
+        "C03e:二、",
+        "C03e:一、",
+        "C03c:一、（七）"
+      ],
+      "hit_clauses_top8": [
+        "C03b:一、（六）",
+        "C03b:一、（七）",
+        "C03e:二、",
+        "C03e:一、",
+        "C03c:一、（七）",
+        "C03b:一、（四）",
+        "C02:第9条",
+        "C07c:三、（一）"
+      ],
+      "expect": [
+        "C03b",
+        "C03c"
+      ],
+      "clause_ref": [
+        "C03b:一、（四）",
+        "C03c:一、（七）"
+      ],
+      "state": "answered",
+      "citation_ids": [
+        622,
+        623,
+        689,
+        688,
+        631
+      ],
+      "hard_hallucination": false,
+      "latency_ms": 81.25,
+      "tags": [
+        "营改增注释",
+        "建筑服务"
+      ]
+    },
+    {
+      "id": "Q08",
+      "ok": true,
+      "clause_ref_ok": true,
+      "hit_corpus": [
+        "C03a",
+        "C03b",
+        "C03c"
+      ],
+      "hit_clauses_top5": [
+        "C03b:一、（六）",
+        "C03c:二、",
+        "C03c:一、（八）",
+        "C03c:一、（九）",
+        "C03a:第27条"
+      ],
+      "hit_clauses_top8": [
+        "C03b:一、（六）",
+        "C03c:二、",
+        "C03c:一、（八）",
+        "C03c:一、（九）",
+        "C03a:第27条",
+        "C07c:三、（四）",
+        "C03c:一、（六）",
+        "C03e:三、"
+      ],
+      "expect": [
+        "C03c"
+      ],
+      "clause_ref": [
+        "C03c:一、（九）"
+      ],
+      "state": "answered",
+      "citation_ids": [
+        622,
+        641,
+        632,
+        633,
+        587
+      ],
+      "hard_hallucination": false,
+      "latency_ms": 97.96,
+      "tags": [
+        "不动产租赁",
+        "简易计税"
+      ]
+    },
+    {
+      "id": "Q09",
+      "ok": true,
+      "clause_ref_ok": true,
+      "hit_corpus": [
+        "C03b",
+        "C03e",
+        "C07c"
+      ],
+      "hit_clauses_top5": [
+        "C03b:一、（六）",
+        "C03b:一、（五）",
+        "C03e:二、",
+        "C07c:二、（二）",
+        "C03b:一、（七）"
+      ],
+      "hit_clauses_top8": [
+        "C03b:一、（六）",
+        "C03b:一、（五）",
+        "C03e:二、",
+        "C07c:二、（二）",
+        "C03b:一、（七）",
+        "C03e:一、",
+        "C02:第2条",
+        "C03d:一、（二十三）"
+      ],
+      "expect": [
+        "C03b"
+      ],
+      "clause_ref": [
+        "C03b:一、（五）"
+      ],
+      "state": "answered",
+      "citation_ids": [
+        622,
+        621,
+        689,
+        750,
+        623
+      ],
+      "hard_hallucination": false,
+      "latency_ms": 203.47,
+      "tags": [
+        "营改增注释",
+        "金融服务"
+      ]
+    },
+    {
+      "id": "Q10",
+      "ok": true,
+      "clause_ref_ok": true,
+      "hit_corpus": [
+        "C01",
+        "C02",
+        "C07b",
+        "C07c"
+      ],
+      "hit_clauses_top5": [
+        "C07c:三、（四）",
+        "C07c:三、（三）",
+        "C01:第14条",
+        "C07b:七、",
+        "C02:第49条"
+      ],
+      "hit_clauses_top8": [
+        "C07c:三、（四）",
+        "C07c:三、（三）",
+        "C01:第14条",
+        "C07b:七、",
+        "C02:第49条",
+        "C01:第8条",
+        "C07a:二、",
+        "C03c:一、（七）"
+      ],
+      "expect": [
+        "C01",
+        "C03a",
+        "C07c"
+      ],
+      "clause_ref": [
+        "C01:第11条",
+        "C01:第14条",
+        "C03a:第16条"
+      ],
+      "state": "answered",
+      "citation_ids": [
+        754,
+        753,
+        482,
+        740,
+        555
+      ],
+      "hard_hallucination": false,
+      "latency_ms": 97.38,
+      "tags": [
+        "税率",
+        "征收率"
+      ]
     },
     {
       "id": "Q11",
       "ok": true,
+      "clause_ref_ok": true,
       "hit_corpus": [
+        "C01",
         "C02",
         "C03a",
         "C03c"
       ],
+      "hit_clauses_top5": [
+        "C03c:二、",
+        "C02:第25条",
+        "C03a:第26条",
+        "C03a:第21条",
+        "C01:第22条"
+      ],
+      "hit_clauses_top8": [
+        "C03c:二、",
+        "C02:第25条",
+        "C03a:第26条",
+        "C03a:第21条",
+        "C01:第22条",
+        "C04:八、",
+        "C03a:第29条",
+        "C04:七、"
+      ],
       "expect": [
         "C01",
-        "C02"
+        "C02",
+        "C03a"
+      ],
+      "clause_ref": [
+        "C01:第22条",
+        "C03a:第27条"
       ],
       "state": "answered",
       "citation_ids": [
         641,
-        589,
         531,
+        586,
         581,
-        586
+        490
       ],
       "hard_hallucination": false,
-      "latency_ms": 86.81
+      "latency_ms": 78.88,
+      "tags": [
+        "进项抵扣"
+      ]
     },
     {
-      "id": "Q29",
+      "id": "Q17",
       "ok": true,
+      "clause_ref_ok": true,
       "hit_corpus": [
         "C01",
         "C02",
+        "C03c",
+        "C04"
+      ],
+      "hit_clauses_top5": [
+        "C03c:二、",
+        "C04:六、",
+        "C01:第22条",
+        "C02:第21条",
+        "C03c:一、（二）"
+      ],
+      "hit_clauses_top8": [
+        "C03c:二、",
+        "C04:六、",
+        "C01:第22条",
+        "C02:第21条",
+        "C03c:一、（二）",
+        "C05:七、",
+        "C04:七、",
+        "C03a:第29条"
+      ],
+      "expect": [
+        "C02",
         "C03a",
-        "C03c"
+        "C01"
+      ],
+      "clause_ref": [
+        "C02:第21条",
+        "C03a:第27条"
+      ],
+      "state": "answered",
+      "citation_ids": [
+        641,
+        702,
+        490,
+        527,
+        628
+      ],
+      "hard_hallucination": false,
+      "latency_ms": 79.15,
+      "tags": [
+        "进项抵扣",
+        "贷款服务"
+      ]
+    },
+    {
+      "id": "Q18",
+      "ok": true,
+      "clause_ref_ok": true,
+      "hit_corpus": [
+        "C01",
+        "C03c",
+        "C04",
+        "C05"
+      ],
+      "hit_clauses_top5": [
+        "C03c:二、",
+        "C01:第22条",
+        "C04:六、",
+        "C05:七、",
+        "C04:七、"
+      ],
+      "hit_clauses_top8": [
+        "C03c:二、",
+        "C01:第22条",
+        "C04:六、",
+        "C05:七、",
+        "C04:七、",
+        "C03a:第29条",
+        "C03c:一、（二）",
+        "C02:第24条"
       ],
       "expect": [
         "C01",
-        "C02"
+        "C03a"
+      ],
+      "clause_ref": [
+        "C01:第22条",
+        "C03a:第27条"
       ],
       "state": "answered",
       "citation_ids": [
-        563,
-        542,
-        477,
-        607,
-        632
+        641,
+        490,
+        702,
+        712,
+        703
       ],
       "hard_hallucination": false,
-      "latency_ms": 188.31
-    },
-    {
-      "id": "Q37",
-      "ok": true,
-      "hit_corpus": [
-        "C04",
-        "C05",
-        "C06",
-        "C07c"
-      ],
-      "expect": [
-        "C05"
-      ],
-      "state": "answered",
-      "citation_ids": [
-        768,
-        716,
-        704,
-        730,
-        753
-      ],
-      "hard_hallucination": false,
-      "latency_ms": 100.96
-    },
-    {
-      "id": "Q38",
-      "ok": true,
-      "hit_corpus": [
-        "C04",
-        "C05",
-        "C06"
-      ],
-      "expect": [
-        "C05"
-      ],
-      "state": "answered",
-      "citation_ids": [
-        706,
-        704,
-        726,
-        722,
-        715
-      ],
-      "hard_hallucination": false,
-      "latency_ms": 130.95
-    },
-    {
-      "id": "Q41",
-      "ok": true,
-      "hit_corpus": [
-        "C04",
-        "C06"
-      ],
-      "expect": [
-        "C06"
-      ],
-      "state": "answered",
-      "citation_ids": [
-        722,
-        726,
-        704,
-        724,
-        725
-      ],
-      "hard_hallucination": false,
-      "latency_ms": 82.28
+      "latency_ms": 93.36,
+      "tags": [
+        "进项抵扣",
+        "餐饮"
+      ]
     },
     {
       "id": "Q21",
       "ok": true,
+      "clause_ref_ok": true,
       "hit_corpus": [
         "C01",
         "C03a",
         "C03c"
       ],
+      "hit_clauses_top5": [
+        "C03a:第40条",
+        "C01:第5条",
+        "C03c:二、",
+        "C03c:一、（一）",
+        "C03a:第27条"
+      ],
+      "hit_clauses_top8": [
+        "C03a:第40条",
+        "C01:第5条",
+        "C03c:二、",
+        "C03c:一、（一）",
+        "C03a:第27条",
+        "C07c:二、（二）",
+        "C03c:一、（八）",
+        "C01:第4条"
+      ],
       "expect": [
         "C01"
+      ],
+      "clause_ref": [
+        "C01:第5条"
       ],
       "state": "answered",
       "citation_ids": [
@@ -191,7 +546,528 @@
         587
       ],
       "hard_hallucination": false,
-      "latency_ms": 92.98
+      "latency_ms": 102.61,
+      "tags": [
+        "视同销售"
+      ]
+    },
+    {
+      "id": "Q29",
+      "ok": true,
+      "clause_ref_ok": true,
+      "hit_corpus": [
+        "C02",
+        "C03a",
+        "C07b"
+      ],
+      "hit_clauses_top5": [
+        "C07b:七、",
+        "C07b:一、",
+        "C03a:第3条",
+        "C02:第36条",
+        "C02:第49条"
+      ],
+      "hit_clauses_top8": [
+        "C07b:七、",
+        "C07b:一、",
+        "C03a:第3条",
+        "C02:第36条",
+        "C02:第49条",
+        "C03a:第50条",
+        "C07b:二、",
+        "C03c:一、（八）"
+      ],
+      "expect": [
+        "C07a",
+        "C07b"
+      ],
+      "clause_ref": [
+        "C07a:一、",
+        "C07b:一、"
+      ],
+      "state": "answered",
+      "citation_ids": [
+        740,
+        734,
+        563,
+        542,
+        555
+      ],
+      "hard_hallucination": false,
+      "latency_ms": 118.1,
+      "tags": [
+        "小规模",
+        "免征"
+      ]
+    },
+    {
+      "id": "Q36",
+      "ok": true,
+      "clause_ref_ok": true,
+      "hit_corpus": [
+        "C03c",
+        "C07a",
+        "C07b",
+        "C07c"
+      ],
+      "hit_clauses_top5": [
+        "C07c:三、（三）",
+        "C07b:七、",
+        "C03c:一、（八）",
+        "C07a:二、",
+        "C07b:五、"
+      ],
+      "hit_clauses_top8": [
+        "C07c:三、（三）",
+        "C07b:七、",
+        "C03c:一、（八）",
+        "C07a:二、",
+        "C07b:五、",
+        "C03a:第3条",
+        "C07b:一、",
+        "C03c:一、（九）"
+      ],
+      "expect": [
+        "C07a"
+      ],
+      "clause_ref": [
+        "C07a:二、"
+      ],
+      "state": "answered",
+      "citation_ids": [
+        753,
+        740,
+        632,
+        732,
+        738
+      ],
+      "hard_hallucination": false,
+      "latency_ms": 91.05,
+      "tags": [
+        "小规模",
+        "征收率"
+      ]
+    },
+    {
+      "id": "Q37",
+      "ok": true,
+      "clause_ref_ok": true,
+      "hit_corpus": [
+        "C04",
+        "C05",
+        "C06",
+        "C07c"
+      ],
+      "hit_clauses_top5": [
+        "C07c:五、",
+        "C04:八、",
+        "C05:十一、",
+        "C06:十、",
+        "C06:十四、"
+      ],
+      "hit_clauses_top8": [
+        "C07c:五、",
+        "C04:八、",
+        "C05:十一、",
+        "C06:十、",
+        "C06:十四、",
+        "C07c:三、（三）",
+        "C05:七、",
+        "C05:十、"
+      ],
+      "expect": [
+        "C05"
+      ],
+      "clause_ref": [
+        "C05:一、",
+        "C05:十一、"
+      ],
+      "state": "answered",
+      "citation_ids": [
+        768,
+        704,
+        716,
+        726,
+        730
+      ],
+      "hard_hallucination": false,
+      "latency_ms": 75.14,
+      "tags": [
+        "留抵退税"
+      ]
+    },
+    {
+      "id": "Q38",
+      "ok": true,
+      "clause_ref_ok": true,
+      "hit_corpus": [
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "hit_clauses_top5": [
+        "C05:一、",
+        "C04:八、",
+        "C06:十、",
+        "C06:六、",
+        "C05:十、"
+      ],
+      "hit_clauses_top8": [
+        "C05:一、",
+        "C04:八、",
+        "C06:十、",
+        "C06:六、",
+        "C05:十、",
+        "C06:十一、",
+        "C06:二、",
+        "C03d:三、（二）"
+      ],
+      "expect": [
+        "C05"
+      ],
+      "clause_ref": [
+        "C05:一、",
+        "C05:二、"
+      ],
+      "state": "answered",
+      "citation_ids": [
+        706,
+        704,
+        726,
+        722,
+        715
+      ],
+      "hard_hallucination": false,
+      "latency_ms": 79.99,
+      "tags": [
+        "留抵退税"
+      ]
+    },
+    {
+      "id": "Q40",
+      "ok": true,
+      "clause_ref_ok": true,
+      "hit_corpus": [
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "hit_clauses_top5": [
+        "C04:八、",
+        "C06:六、",
+        "C06:十、",
+        "C05:十、",
+        "C05:二、"
+      ],
+      "hit_clauses_top8": [
+        "C04:八、",
+        "C06:六、",
+        "C06:十、",
+        "C05:十、",
+        "C05:二、",
+        "C06:三、",
+        "C06:九、",
+        "C06:八、"
+      ],
+      "expect": [
+        "C05"
+      ],
+      "clause_ref": [
+        "C05:二、"
+      ],
+      "state": "answered",
+      "citation_ids": [
+        704,
+        722,
+        726,
+        715,
+        707
+      ],
+      "hard_hallucination": false,
+      "latency_ms": 222.8,
+      "tags": [
+        "留抵退税"
+      ]
+    },
+    {
+      "id": "Q41",
+      "ok": true,
+      "clause_ref_ok": true,
+      "hit_corpus": [
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "hit_clauses_top5": [
+        "C06:十、",
+        "C06:六、",
+        "C04:八、",
+        "C06:十三、",
+        "C05:十、"
+      ],
+      "hit_clauses_top8": [
+        "C06:十、",
+        "C06:六、",
+        "C04:八、",
+        "C06:十三、",
+        "C05:十、",
+        "C06:二、",
+        "C06:九、",
+        "C06:一、"
+      ],
+      "expect": [
+        "C06"
+      ],
+      "clause_ref": [
+        "C06:一、",
+        "C06:六、"
+      ],
+      "state": "answered",
+      "citation_ids": [
+        726,
+        722,
+        704,
+        729,
+        715
+      ],
+      "hard_hallucination": false,
+      "latency_ms": 191.95,
+      "tags": [
+        "留抵退税",
+        "征管"
+      ]
+    },
+    {
+      "id": "Q45",
+      "ok": true,
+      "clause_ref_ok": true,
+      "hit_corpus": [
+        "C11"
+      ],
+      "hit_clauses_top5": [
+        "C11:八、",
+        "C11:二、",
+        "C11:一、",
+        "C11:九、",
+        "C11:十一、"
+      ],
+      "hit_clauses_top8": [
+        "C11:八、",
+        "C11:二、",
+        "C11:一、",
+        "C11:九、",
+        "C11:十一、",
+        "C01:第34条",
+        "C07b:六、",
+        "C06:四、"
+      ],
+      "expect": [
+        "C11"
+      ],
+      "clause_ref": [
+        "C11:一、",
+        "C11:二、"
+      ],
+      "state": "answered",
+      "citation_ids": [
+        777,
+        771,
+        770,
+        778,
+        780
+      ],
+      "hard_hallucination": false,
+      "latency_ms": 132.09,
+      "tags": [
+        "数电发票"
+      ]
+    },
+    {
+      "id": "Q46",
+      "ok": true,
+      "clause_ref_ok": true,
+      "hit_corpus": [
+        "C07b",
+        "C11"
+      ],
+      "hit_clauses_top5": [
+        "C11:八、",
+        "C07b:六、",
+        "C11:二、",
+        "C11:一、",
+        "C11:九、"
+      ],
+      "hit_clauses_top8": [
+        "C11:八、",
+        "C07b:六、",
+        "C11:二、",
+        "C11:一、",
+        "C11:九、",
+        "C11:十一、",
+        "C01:第34条",
+        "C03a:第42条"
+      ],
+      "expect": [
+        "C11"
+      ],
+      "clause_ref": [
+        "C11:八、"
+      ],
+      "state": "answered",
+      "citation_ids": [
+        777,
+        739,
+        771,
+        770,
+        778
+      ],
+      "hard_hallucination": false,
+      "latency_ms": 137.48,
+      "tags": [
+        "数电发票",
+        "红冲"
+      ]
+    },
+    {
+      "id": "Q48",
+      "ok": true,
+      "clause_ref_ok": true,
+      "hit_corpus": [
+        "C01",
+        "C02",
+        "C03a",
+        "C06"
+      ],
+      "hit_clauses_top5": [
+        "C03a:第45条",
+        "C01:第28条",
+        "C03a:第44条",
+        "C02:第49条",
+        "C06:十、"
+      ],
+      "hit_clauses_top8": [
+        "C03a:第45条",
+        "C01:第28条",
+        "C03a:第44条",
+        "C02:第49条",
+        "C06:十、",
+        "C07b:七、",
+        "C01:第30条",
+        "C02:第12条"
+      ],
+      "expect": [
+        "C01"
+      ],
+      "clause_ref": [
+        "C01:第28条"
+      ],
+      "state": "answered",
+      "citation_ids": [
+        605,
+        496,
+        604,
+        555,
+        726
+      ],
+      "hard_hallucination": false,
+      "latency_ms": 119.24,
+      "tags": [
+        "纳税义务"
+      ]
+    },
+    {
+      "id": "Q04b",
+      "ok": true,
+      "clause_ref_ok": true,
+      "hit_corpus": [
+        "C04",
+        "C07c"
+      ],
+      "hit_clauses_top5": [
+        "C04:三、",
+        "C07c:五、",
+        "C07c:三、（三）",
+        "C04:四、",
+        "C04:一、"
+      ],
+      "hit_clauses_top8": [
+        "C04:三、",
+        "C07c:五、",
+        "C07c:三、（三）",
+        "C04:四、",
+        "C04:一、",
+        "C03c:二、",
+        "C03d:二、",
+        "C07b:七、"
+      ],
+      "expect": [
+        "C04"
+      ],
+      "clause_ref": [
+        "C04:一、"
+      ],
+      "state": "answered",
+      "citation_ids": [
+        699,
+        768,
+        753,
+        700,
+        697
+      ],
+      "hard_hallucination": false,
+      "latency_ms": 113.17,
+      "tags": [
+        "税率",
+        "深化改革"
+      ]
+    },
+    {
+      "id": "Q03b",
+      "ok": true,
+      "clause_ref_ok": true,
+      "hit_corpus": [
+        "C01",
+        "C02",
+        "C03a",
+        "C07b"
+      ],
+      "hit_clauses_top5": [
+        "C07b:七、",
+        "C02:第36条",
+        "C03a:第3条",
+        "C07b:一、",
+        "C01:第9条"
+      ],
+      "hit_clauses_top8": [
+        "C07b:七、",
+        "C02:第36条",
+        "C03a:第3条",
+        "C07b:一、",
+        "C01:第9条",
+        "C03c:一、（八）",
+        "C07b:二、",
+        "C07c:一、"
+      ],
+      "expect": [
+        "C02",
+        "C01"
+      ],
+      "clause_ref": [
+        "C02:第36条"
+      ],
+      "state": "answered",
+      "citation_ids": [
+        740,
+        542,
+        563,
+        734,
+        477
+      ],
+      "hard_hallucination": false,
+      "latency_ms": 128.19,
+      "tags": [
+        "一般纳税人"
+      ]
     }
   ]
 }

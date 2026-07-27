@@ -1,9 +1,12 @@
 #!/usr/bin/env python3
-"""Golden-set style eval gate (M1-08) — retrieval citation hit rate.
+"""Golden-set eval gate (M1-08) — retrieval + optional clause_ref hit.
 
-Definition (MVP):
-- citation_correct: top-k search returns at least one chunk from expected corpus_id
-- hallucinated_hard_answer: chat state=answered with empty citation_ids (should be 0)
+Loads `knowledge/m0/golden-eval-seed.json`.
+
+Definitions (MVP):
+- corpus_hit: top-5 search returns ≥1 chunk from expect_corpus
+- clause_ref_hit: top-8 matches ≥1 of clause_ref entries (`corpus_id:clause_no`)
+- hard_hallucination: chat state=answered with empty citation_ids
 """
 
 from __future__ import annotations
@@ -20,44 +23,65 @@ from app.db import SessionLocal, init_db  # noqa: E402
 from app.knowledge.search import search_chunks  # noqa: E402
 from app.services.chat import answer_question  # noqa: E402
 
-# Seed questions mapped to expected corpus (clause_ref TBD by experts)
-GOLDEN = [
-    {"id": "Q01", "q": "增值税税率有哪些档次", "expect_corpus": ["C01", "C02"]},
-    {"id": "Q05", "q": "视同应税交易包括哪些情形", "expect_corpus": ["C01"]},
-    {"id": "Q11", "q": "哪些进项税额不得抵扣", "expect_corpus": ["C01", "C02"]},
-    {"id": "Q29", "q": "小规模纳税人的标准是什么", "expect_corpus": ["C01", "C02"]},
-    {"id": "Q37", "q": "2025年完善增值税期末留抵退税政策依据哪份公告", "expect_corpus": ["C05"]},
-    {"id": "Q38", "q": "制造业等四个行业如何申请留抵退税", "expect_corpus": ["C05"]},
-    {"id": "Q41", "q": "办理留抵退税的征管事项公告是哪一份", "expect_corpus": ["C06"]},
-    {"id": "Q21", "q": "将自产货物用于集体福利是否视同销售", "expect_corpus": ["C01"]},
-]
+SEED_PATH = REPO / "knowledge" / "m0" / "golden-eval-seed.json"
+
+
+def load_golden() -> list[dict]:
+    data = json.loads(SEED_PATH.read_text(encoding="utf-8"))
+    return data["items"]
+
+
+def parse_ref(ref: str) -> tuple[str, str]:
+    corpus, _, clause = ref.partition(":")
+    return corpus, clause
+
+
+def clause_ref_hit(hits, refs: list[str]) -> bool:
+    if not refs:
+        return True
+    keys = {(h.corpus_id, h.clause_no) for h in hits}
+    for ref in refs:
+        corpus, clause = parse_ref(ref)
+        if (corpus, clause) in keys:
+            return True
+    return False
 
 
 def main() -> None:
+    golden = load_golden()
     init_db()
     db = SessionLocal()
     rows = []
     try:
-        for g in GOLDEN:
-            hits, meta = search_chunks(db, g["q"], top_k=5)
-            hit_corpus = {h.corpus_id for h in hits}
-            ok = bool(hit_corpus & set(g["expect_corpus"]))
+        for g in golden:
+            hits5, meta = search_chunks(db, g["q"], top_k=5)
+            hits8, _ = search_chunks(db, g["q"], top_k=8)
+            hit_corpus = {h.corpus_id for h in hits5}
+            corpus_ok = bool(hit_corpus & set(g["expect_corpus"]))
+            refs = g.get("clause_ref") or []
+            ref_ok = clause_ref_hit(hits8, refs)
             ans = answer_question(db, g["q"], top_k=5)
             hard_halluc = ans.get("state") == "answered" and not ans.get("citation_ids")
             rows.append(
                 {
                     "id": g["id"],
-                    "ok": ok,
+                    "ok": corpus_ok,
+                    "clause_ref_ok": ref_ok,
                     "hit_corpus": sorted(hit_corpus),
+                    "hit_clauses_top5": [f"{h.corpus_id}:{h.clause_no}" for h in hits5],
+                    "hit_clauses_top8": [f"{h.corpus_id}:{h.clause_no}" for h in hits8],
                     "expect": g["expect_corpus"],
+                    "clause_ref": refs,
                     "state": ans.get("state"),
                     "citation_ids": ans.get("citation_ids"),
                     "hard_hallucination": hard_halluc,
                     "latency_ms": meta.get("latency_ms"),
+                    "tags": g.get("tags") or [],
                 }
             )
             print(
-                f"{g['id']}: retrieval={'PASS' if ok else 'FAIL'} "
+                f"{g['id']}: corpus={'PASS' if corpus_ok else 'FAIL'} "
+                f"clause_ref={'PASS' if ref_ok else 'FAIL'} "
                 f"state={ans.get('state')} cites={ans.get('citation_ids')}"
             )
     finally:
@@ -65,17 +89,21 @@ def main() -> None:
 
     n = len(rows)
     recall = sum(1 for r in rows if r["ok"]) / n if n else 0
+    ref_rate = sum(1 for r in rows if r["clause_ref_ok"]) / n if n else 0
     halluc = sum(1 for r in rows if r["hard_hallucination"]) / n if n else 0
     gate_ok = recall >= 0.7 and halluc <= 0.05
     report = {
+        "seed": str(SEED_PATH.relative_to(REPO)),
         "definition": {
-            "citation_correct": "top5 命中期望 corpus_id 任一",
+            "corpus_hit": "top5 命中期望 corpus_id 任一",
+            "clause_ref_hit": "top8 命中 clause_ref（corpus_id:clause_no）任一",
             "hard_hallucination": "answered 且 citation_ids 为空",
-            "release_gate": "recall>=0.70 and hard_hallucination<=0.05",
+            "release_gate": "corpus_recall>=0.70 and hard_hallucination<=0.05",
         },
         "metrics": {
             "n": n,
             "retrieval_hit_rate": round(recall, 4),
+            "clause_ref_hit_rate": round(ref_rate, 4),
             "hard_hallucination_rate": round(halluc, 4),
             "gate_ok": gate_ok,
         },

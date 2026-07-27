@@ -61,7 +61,7 @@ npm run dev
 # 切块入库
 cd apps/api && .venv/bin/python scripts/import_raw_corpus.py --publish
 
-# 黄金集门禁（种子题）
+# 黄金集门禁（种子题，含 clause_ref）
 .venv/bin/python scripts/eval_golden.py
 
 # 问答（需 API 已启动）
