@@ -10,6 +10,7 @@
 | `prd/backlog-mvp-tasks.md` | 开发任务 |
 | `knowledge/m0/` | 语料清单与黄金集 |
 | `ops/m0/` | 免责、拒答、专家招募 |
+| `ops/s0/` | **Sprint 0 落地包**（假门、话术、runbook、Go/No-Go） |
 | `discovery/` | 发现阶段产出 |
 
 ## 本地启动

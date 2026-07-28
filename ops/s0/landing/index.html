@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>条款问税 · 代账主办试点</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&family=Noto+Serif+SC:wght@600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --ink: #1a2332;
+      --muted: #5c6b7a;
+      --paper: #f3efe6;
+      --card: #fffdf8;
+      --line: #d4cbb8;
+      --accent: #0f6e56;
+      --accent-2: #c45c26;
+      --warn: #8a6d3b;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Noto Sans SC", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(ellipse 80% 50% at 10% -10%, #e7efe9 0%, transparent 55%),
+        radial-gradient(ellipse 60% 40% at 100% 0%, #f0e4d4 0%, transparent 50%),
+        var(--paper);
+      line-height: 1.6;
+    }
+    .wrap { max-width: 720px; margin: 0 auto; padding: 2.5rem 1.25rem 4rem; }
+    .brand {
+      font-family: "Noto Serif SC", serif;
+      font-size: 1.75rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      margin: 0 0 0.35rem;
+    }
+    .eyebrow {
+      display: inline-block;
+      font-size: 0.8rem;
+      color: var(--accent);
+      font-weight: 500;
+      margin-bottom: 0.75rem;
+    }
+    h1 {
+      font-family: "Noto Serif SC", serif;
+      font-size: clamp(1.6rem, 4vw, 2.1rem);
+      line-height: 1.25;
+      font-weight: 700;
+      margin: 0 0 0.75rem;
+    }
+    .lead { color: var(--muted); font-size: 1.05rem; margin: 0 0 1.75rem; }
+    .pillars {
+      display: grid;
+      gap: 0.85rem;
+      margin-bottom: 2rem;
+    }
+    .pillar {
+      background: var(--card);
+      border: 1px solid var(--line);
+      padding: 1rem 1.1rem;
+      border-radius: 2px;
+    }
+    .pillar strong { display: block; margin-bottom: 0.25rem; color: var(--accent); }
+    .demo {
+      background: var(--card);
+      border-left: 3px solid var(--accent);
+      padding: 1rem 1.15rem;
+      margin-bottom: 2rem;
+    }
+    .demo .label { font-size: 0.75rem; color: var(--muted); margin-bottom: 0.5rem; }
+    .demo .conclusion { font-weight: 500; margin-bottom: 0.5rem; }
+    .cite {
+      font-size: 0.9rem;
+      color: var(--muted);
+      border-top: 1px dashed var(--line);
+      padding-top: 0.65rem;
+      margin-top: 0.65rem;
+    }
+    .plans {
+      display: grid;
+      gap: 0.75rem;
+      margin: 1.25rem 0 1rem;
+    }
+    @media (min-width: 640px) {
+      .plans { grid-template-columns: repeat(3, 1fr); }
+    }
+    .plan {
+      background: var(--card);
+      border: 1px solid var(--line);
+      padding: 1rem;
+      cursor: pointer;
+      text-align: left;
+      font: inherit;
+      color: inherit;
+      border-radius: 2px;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+    .plan:hover, .plan[aria-pressed="true"] {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 1px var(--accent);
+    }
+    .plan .price { font-family: "Noto Serif SC", serif; font-size: 1.35rem; font-weight: 700; }
+    .plan .name { font-size: 0.85rem; color: var(--muted); margin-bottom: 0.35rem; }
+    .plan .desc { font-size: 0.85rem; color: var(--muted); margin-top: 0.4rem; }
+    .note {
+      font-size: 0.85rem;
+      color: var(--warn);
+      margin: 0 0 1.25rem;
+    }
+    .cta-row { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 1.5rem; }
+    button.primary, a.primary {
+      appearance: none;
+      border: none;
+      background: var(--accent);
+      color: #fff;
+      font: inherit;
+      font-weight: 500;
+      padding: 0.85rem 1.25rem;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      border-radius: 2px;
+    }
+    button.primary:hover, a.primary:hover { filter: brightness(1.05); }
+    button.ghost {
+      appearance: none;
+      background: transparent;
+      border: 1px solid var(--line);
+      color: var(--ink);
+      font: inherit;
+      padding: 0.85rem 1.25rem;
+      cursor: pointer;
+      border-radius: 2px;
+    }
+    .form {
+      display: none;
+      background: var(--card);
+      border: 1px solid var(--line);
+      padding: 1.25rem;
+      margin-bottom: 1.5rem;
+    }
+    .form.visible { display: block; }
+    .form label { display: block; font-size: 0.85rem; margin: 0.65rem 0 0.25rem; }
+    .form input, .form select, .form textarea {
+      width: 100%;
+      padding: 0.55rem 0.65rem;
+      border: 1px solid var(--line);
+      font: inherit;
+      background: #fff;
+      border-radius: 2px;
+    }
+    .form textarea { min-height: 72px; resize: vertical; }
+    .ok {
+      display: none;
+      padding: 1rem;
+      background: #e7f3ee;
+      border: 1px solid #b7d9cb;
+      margin-bottom: 1.5rem;
+    }
+    .ok.visible { display: block; }
+    footer {
+      font-size: 0.8rem;
+      color: var(--muted);
+      border-top: 1px solid var(--line);
+      padding-top: 1rem;
+    }
+    .counter {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-top: 0.75rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <p class="eyebrow">代账主办试点 · Sprint 0 假门</p>
+    <p class="brand">条款问税</p>
+    <h1>日常税问，先给有出处的答案；搞不定，再按单找专家。</h1>
+    <p class="lead">专为代账办税主办：增值税等高频碎问可追溯到条款；复杂个案先报价后付，咨询费按约定结算给接单专家。</p>
+
+    <div class="pillars">
+      <div class="pillar"><strong>敢用</strong>结论绑定条款原文与时效，无依据不硬答。</div>
+      <div class="pillar"><strong>敢升级</strong>不确定时不装懂，一键转持证专家要书面答复。</div>
+      <div class="pillar"><strong>算得清</strong>标准 / 加急 / 深度分档；先看价再付款。</div>
+    </div>
+
+    <div class="demo">
+      <div class="label">答案卡示意（非实时生成）</div>
+      <div class="conclusion">结论：购进贷款服务的进项税额，原则上不得从销项税额中抵扣。</div>
+      <div class="cite">依据示例：营改增相关不得抵扣条款 · 请以现行有效文本为准<br />适用边界：需结合纳税人身份与具体交易事实。</div>
+    </div>
+
+    <p style="font-weight:500;margin:0 0 0.5rem">选择一档，查看估价（试点）</p>
+    <div class="plans" id="plans">
+      <button type="button" class="plan" data-plan="standard" aria-pressed="true">
+        <div class="name">标准单</div>
+        <div class="price">¥99</div>
+        <div class="desc">24h 内书面首答 · 常见增值税口径</div>
+      </button>
+      <button type="button" class="plan" data-plan="urgent" aria-pressed="false">
+        <div class="name">加急单</div>
+        <div class="price">¥199</div>
+        <div class="desc">约 4–8h（工作时段）· 材料较齐</div>
+      </button>
+      <button type="button" class="plan" data-plan="deep" aria-pressed="false">
+        <div class="name">深度单</div>
+        <div class="price">¥399</div>
+        <div class="desc">复杂适用分析 · 专家复核加长</div>
+      </button>
+    </div>
+    <p class="note">说明：用户支付的咨询费按约定比例结算给接单专家，平台收取服务费（试运行分成草案约专家 70%）。答复仅供参考，不构成税务行政机关意见。</p>
+
+    <div class="cta-row">
+      <button type="button" class="primary" id="btnQuote">立即估价 / 预约试点</button>
+      <button type="button" class="ghost" id="btnDeposit">留 ¥20 意向金名额</button>
+    </div>
+
+    <div class="form" id="form">
+      <p style="margin:0;font-weight:500">试点预约（假门收集）</p>
+      <label>怎么称呼</label>
+      <input id="name" placeholder="姓名或昵称" />
+      <label>微信 / 手机</label>
+      <input id="contact" placeholder="方便联系的方式" />
+      <label>角色</label>
+      <select id="role">
+        <option>代账主办会计</option>
+        <option>代账其他岗位</option>
+        <option>企业财务</option>
+        <option>其他</option>
+      </select>
+      <label>最近一次税问场景（可选）</label>
+      <textarea id="scene" placeholder="例如：客户小规模 1% 征收率还能用吗"></textarea>
+      <label style="margin-top:0.85rem">
+        <input type="checkbox" id="wantDeposit" /> 我想留意向金名额（运营稍后联系收款）
+      </label>
+      <div class="cta-row" style="margin-top:1rem;margin-bottom:0">
+        <button type="button" class="primary" id="btnSubmit">提交</button>
+      </div>
+      <p class="counter" id="localStats"></p>
+    </div>
+
+    <div class="ok" id="ok">
+      已收到。我们会在试点名额内联系你。若需访谈或 Concierge 真单，运营会单独说明服务水平。
+    </div>
+
+    <footer>
+      本页为 Sprint 0 需求验证假门，不承诺全部功能已上线。UTM 请加在 URL：<code>?utm_source=community&utm_campaign=s0</code><br />
+      本地统计仅存在本机浏览器，正式投放请改接表单后端 / 金数据 / 飞书。
+    </footer>
+  </div>
+  <script>
+    const params = new URLSearchParams(location.search);
+    const utm = {
+      source: params.get("utm_source") || "direct",
+      campaign: params.get("utm_campaign") || "s0",
+    };
+    let plan = "standard";
+    const key = "taxai_s0_landing_leads";
+
+    function loadLeads() {
+      try { return JSON.parse(localStorage.getItem(key) || "[]"); }
+      catch { return []; }
+    }
+    function saveLead(row) {
+      const all = loadLeads();
+      all.push(row);
+      localStorage.setItem(key, JSON.stringify(all));
+      document.getElementById("localStats").textContent =
+        "本机已记录提交 " + all.length + " 次（含历史）。";
+    }
+
+    // quote click funnel
+    function track(event, extra) {
+      const row = { event, t: new Date().toISOString(), plan, ...utm, ...extra };
+      const funnels = JSON.parse(localStorage.getItem("taxai_s0_funnel") || "[]");
+      funnels.push(row);
+      localStorage.setItem("taxai_s0_funnel", JSON.stringify(funnels));
+      console.info("[S0]", row);
+    }
+
+    track("page_view");
+
+    document.querySelectorAll(".plan").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".plan").forEach((b) => b.setAttribute("aria-pressed", "false"));
+        btn.setAttribute("aria-pressed", "true");
+        plan = btn.dataset.plan;
+        track("plan_select", { plan });
+      });
+    });
+
+    function showForm(wantDeposit) {
+      document.getElementById("form").classList.add("visible");
+      document.getElementById("wantDeposit").checked = !!wantDeposit;
+      track(wantDeposit ? "deposit_intent_click" : "quote_click");
+    }
+
+    document.getElementById("btnQuote").onclick = () => showForm(false);
+    document.getElementById("btnDeposit").onclick = () => showForm(true);
+
+    document.getElementById("btnSubmit").onclick = () => {
+      const name = document.getElementById("name").value.trim();
+      const contact = document.getElementById("contact").value.trim();
+      if (!contact) {
+        alert("请留下微信或手机，方便联系");
+        return;
+      }
+      const payload = {
+        name,
+        contact,
+        role: document.getElementById("role").value,
+        scene: document.getElementById("scene").value.trim(),
+        wantDeposit: document.getElementById("wantDeposit").checked,
+        plan,
+        ...utm,
+        t: new Date().toISOString(),
+      };
+      saveLead(payload);
+      track("lead_submit", { wantDeposit: payload.wantDeposit });
+      document.getElementById("ok").classList.add("visible");
+      document.getElementById("form").classList.remove("visible");
+    };
+  </script>
+</body>
+</html>

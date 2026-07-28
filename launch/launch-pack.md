@@ -37,12 +37,14 @@
 
 ## 本周启动清单（可撕下）
 
-1. [ ] 定稿 Landing 三支柱文案 + 三档价 + 分成一句  
-2. [ ] 锁定 1 个代账社群入口 + 50 人名单  
-3. [ ] 专家一页协议 + 招募 ≥5 试接  
-4. [ ] 上线假门链接（带 UTM）  
-5. [ ] 启动访谈（脚本已有）与 10 题图谱小样  
-6. [ ] 周中看点击/意向金；周末 Go/No-Go  
+入口：**`ops/s0/README.md`**
+
+1. [ ] 打开 `ops/s0/runbook.md`，定 D1 日期  
+2. [ ] 复制 `ops/s0/tracking.md` 做名单表  
+3. [ ] 预览假门：`npx serve ops/s0/landing -p 5174`  
+4. [ ] 按 `ops/s0/outreach.md` 发社群/私域  
+5. [ ] 专家用 `ops/m0/expert-recruitment.md`；题单用 `ops/s0/spike-10.md`  
+6. [ ] D10：`ops/s0/go-nogo-agenda.md` 拍板  
 
 ---
 

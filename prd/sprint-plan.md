@@ -54,6 +54,8 @@ S3 硬化与发布门禁
 
 **Sprint Goal:** 用假门、真单与 10 题图谱小样，验证「愿付 ∩ 愿接 ∩ 库可做」；不通过则停 MVP 大开发。
 
+**落地包：** [`ops/s0/README.md`](../ops/s0/README.md)（runbook · landing · outreach · spike-10 · tracking · go-nogo）
+
 **Duration:** 2 周  
 **Team Capacity (Eng):** ~10 SP（本 sprint 刻意少做产品功能）  
 **Committed:** 见下（偏运营+内容+薄工程）  
