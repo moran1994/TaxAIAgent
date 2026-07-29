@@ -248,7 +248,7 @@
 
     <footer>
       本页为 Sprint 0 需求验证假门，不承诺全部功能已上线。UTM 请加在 URL：<code>?utm_source=community&utm_campaign=s0</code><br />
-      本地统计仅存在本机浏览器，正式投放请改接表单后端 / 金数据 / 飞书。
+      本地 + 服务端双写：浏览器 localStorage 与 <code>ops/s0/leads.jsonl</code>（经 <code>/api/lead</code>）。
     </footer>
   </div>
   <script>
@@ -260,6 +260,14 @@
     let plan = "standard";
     const key = "taxai_s0_landing_leads";
 
+    function post(path, row) {
+      fetch(path, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(row),
+      }).catch(() => {});
+    }
+
     function loadLeads() {
       try { return JSON.parse(localStorage.getItem(key) || "[]"); }
       catch { return []; }
@@ -269,7 +277,8 @@
       all.push(row);
       localStorage.setItem(key, JSON.stringify(all));
       document.getElementById("localStats").textContent =
-        "本机已记录提交 " + all.length + " 次（含历史）。";
+        "本机已记录提交 " + all.length + " 次（含历史）；已同步服务端 leads.jsonl。";
+      post("/api/lead", row);
     }
 
     // quote click funnel
@@ -279,6 +288,7 @@
       funnels.push(row);
       localStorage.setItem("taxai_s0_funnel", JSON.stringify(funnels));
       console.info("[S0]", row);
+      post("/api/event", row);
     }
 
     track("page_view");

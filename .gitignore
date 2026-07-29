@@ -5,6 +5,8 @@ __pycache__/
 apps/api/data/
 apps/web/node_modules/
 apps/web/dist/
+ops/s0/leads.jsonl
+ops/s0/funnel.jsonl
 .DS_Store
 *.egg-info/
 .pytest_cache/

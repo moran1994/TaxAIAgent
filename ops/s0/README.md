@@ -9,7 +9,12 @@
 
 | 文件 | 用途 |
 |------|------|
-| [D1-2026-07-28.md](./D1-2026-07-28.md) | **今日执行单（开跑）** |
+| [D1-2026-07-28.md](./D1-2026-07-28.md) | D1 执行单（开跑） |
+| [D2-2026-07-29.md](./D2-2026-07-29.md) | **D2 执行单（今日）** |
+| [D2-STATUS.md](./D2-STATUS.md) | Agent 已做 vs 需你发微信 |
+| [d2-dm-checklist.md](./d2-dm-checklist.md) | 20 条私域发送勾选 |
+| [d2-interview-slots.md](./d2-interview-slots.md) | 约访锁定 ≥3 |
+| [d2-expert-followup.md](./d2-expert-followup.md) | 专家跟进 |
 | [runbook.md](./runbook.md) | 双周日程与站会焦点 |
 | [landing/index.html](./landing/index.html) | 假门落地页（本地打开或静态托管） |
 | [outreach.md](./outreach.md) | 社群/私域邀约话术 |

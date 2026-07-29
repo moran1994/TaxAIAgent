@@ -3,18 +3,20 @@
 **对象**：代账办税主办（S1）  
 **目标**：打开假门链接 / 预约访谈 / 专家试接  
 
-假门链接（示例，请替换为实际托管地址）：
+假门链接（本机验证）：
 
 ```text
-https://YOUR_HOST/ops/s0/landing/index.html?utm_source=wecom&utm_campaign=s0_list
+http://127.0.0.1:5174/?utm_source=dm&utm_campaign=s0
 ```
 
-本地预览：
+本地启动（务必绑 IPv4，避免空响应）：
 
 ```bash
-npx --yes serve "/Volumes/personSpace/skill project/未命名/ops/s0/landing" -p 5174
-# 打开 http://localhost:5174/?utm_source=local&utm_campaign=s0
+cd "/Volumes/personSpace/skill project/未命名/ops/s0/landing"
+python3 -m http.server 5174 --bind 127.0.0.1
 ```
+
+发给外部用户前请换成公网托管地址；未就绪时用「回我可约 / 看页」话术（见 `D2-2026-07-29.md`）。
 
 ---
 
